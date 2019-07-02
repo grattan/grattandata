@@ -46,6 +46,10 @@ read_microdata <- function(path = NULL,
 
   path <- file.path(data_warehouse_path, path)
 
+  # included for debugging purposes
+
+  print(path)
+
   rio::import(file = path,
               setclass = setclass,
               ...)

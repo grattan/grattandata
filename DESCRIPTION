@@ -1,0 +1,18 @@
+Package: grattandata
+Title: Use Microdata at Grattan Institute
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Matt",
+           family = "Cowgill",
+           role = c("aut", "cre"),
+           email = "matthew.cowgill@grattan.edu.au")
+Description: Easily load microdata from the Grattan Institute data warehouse.
+License: GPL-3
+Depends: R (>= 3.5.0)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: 
+    magrittr,
+    jsonlite,
+    rio

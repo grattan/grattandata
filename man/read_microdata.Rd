@@ -4,8 +4,16 @@
 \alias{read_microdata}
 \title{read_microdata loads data from the Grattan Institute data warehouse}
 \usage{
-read_microdata(release = NULL, provider = "ABS", date = NULL,
-  format = NULL, file = NULL, path = NULL, setclass = "tbl", ...)
+read_microdata(path = NULL, setclass = "tbl", ...)
+}
+\arguments{
+\item{path}{Path to the microdata file within the `microdata` folder,
+including filename and extension. For example, "ABS/SIH/2015-16/Stata/HES15BP.dta".}
+
+\item{setclass}{default = `tbl`. Class of object you wish to be returned.
+Default returns a tibble. Can also specify `data.frame` or `data.table`.}
+
+\item{...}{arguments passed to `rio::import()`. See `?rio::import`}
 }
 \description{
 read_microdata loads data from the Grattan Institute data warehouse

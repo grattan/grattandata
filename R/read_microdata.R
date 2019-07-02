@@ -2,11 +2,19 @@
 #'
 #' @param path Path to the microdata file within the `microdata` folder,
 #' including filename and extension. For example, "ABS/SIH/2015-16/Stata/HES15BP.dta".
+#' Use `/` to separate subdirectories, not `\`, regardless of whether you're on a
+#' Windows machine or a Mac.
 #'
 #' @param setclass default = `tbl`. Class of object you wish to be returned.
 #' Default returns a tibble. Can also specify `data.frame` or `data.table`.
 #'
 #' @param ... arguments passed to `rio::import()`. See `?rio::import`
+#'
+#' @examples
+#'
+#' \donttest{
+#'  sih_1516 <- read_microdata("ABS/SIH/2015-16/Stata/SIH15BH.dta")
+#' }
 #'
 #' @importFrom rio import
 #' @importFrom jsonlite fromJSON
@@ -45,10 +53,6 @@ read_microdata <- function(path = NULL,
                                    "microdata")
 
   path <- file.path(data_warehouse_path, path)
-
-  # included for debugging purposes
-
-  print(path)
 
   rio::import(file = path,
               setclass = setclass,

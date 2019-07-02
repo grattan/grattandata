@@ -8,7 +8,9 @@ read_microdata(path = NULL, setclass = "tbl", ...)
 }
 \arguments{
 \item{path}{Path to the microdata file within the `microdata` folder,
-including filename and extension. For example, "ABS/SIH/2015-16/Stata/HES15BP.dta".}
+including filename and extension. For example, "ABS/SIH/2015-16/Stata/HES15BP.dta".
+Use `/` to separate subdirectories, not `\`, regardless of whether you're on a
+Windows machine or a Mac.}
 
 \item{setclass}{default = `tbl`. Class of object you wish to be returned.
 Default returns a tibble. Can also specify `data.frame` or `data.table`.}
@@ -17,4 +19,11 @@ Default returns a tibble. Can also specify `data.frame` or `data.table`.}
 }
 \description{
 read_microdata loads data from the Grattan Institute data warehouse
+}
+\examples{
+
+\donttest{
+ sih_1516 <- read_microdata("ABS/SIH/2015-16/Stata/SIH15BH.dta")
+}
+
 }

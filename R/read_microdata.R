@@ -44,8 +44,8 @@ read_microdata <- function(path = NULL,
 
   dropbox_path <-
     jsonlite::fromJSON(dropbox_info_location) %>%
-    use_series("business") %>%
-    use_series("path")
+    magrittr::use_series("business") %>%
+    magrittr::use_series("path")
 
   data_warehouse_path <- file.path(dropbox_path,
                                    "Grattan Team",

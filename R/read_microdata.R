@@ -48,11 +48,27 @@ read_microdata <- function(path = NULL,
     magrittr::use_series("path")
 
   data_warehouse_path <- file.path(dropbox_path,
-                                   "Grattan Team",
-                                   "data",
-                                   "microdata")
+                                   "grattan_data")
 
   path <- file.path(data_warehouse_path, path)
+  
+  dir <- dirname(path)
+  
+  # Check if directory exists 
+  if(!dir.exists(dir)) {
+    stop(paste0("Cannot find the directory: ", dir))
+  }
+  
+  # Check if user has access to directory
+  if(file.access(dir, mode = 2) != 0) {
+    stop(paste0("You do not have access to ", dir))
+  }
+  
+  # Check if file exists
+  if(!file.exists(path)) {
+    stop(paste0("The file ", path, " cannot be found"))
+  }
+  
 
   rio::import(file = path,
               setclass = setclass,

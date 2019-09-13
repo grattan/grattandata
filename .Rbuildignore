@@ -1,2 +1,3 @@
 ^grattandata\.Rproj$
 ^\.Rproj\.user$
+^\.httr-oauth$

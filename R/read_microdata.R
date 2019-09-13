@@ -13,7 +13,7 @@
 #' @examples
 #'
 #' \donttest{
-#'  sih_1516 <- read_microdata("ABS/SIH/2015-16/Stata/SIH15BH.dta")
+#' hes_1516 <- read_microdata("abs/hes/2015-16/hes15bh.sas7bdat")
 #' }
 #'
 #' @importFrom rio import
@@ -48,7 +48,7 @@ read_microdata <- function(path = NULL,
     magrittr::use_series("path")
 
   data_warehouse_path <- file.path(dropbox_path,
-                                   "grattan_data")
+                                   "data")
 
   path <- file.path(data_warehouse_path, path)
   

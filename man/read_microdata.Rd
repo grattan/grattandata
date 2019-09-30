@@ -4,11 +4,32 @@
 \alias{read_microdata}
 \title{read_microdata loads data from the Grattan Institute data warehouse}
 \usage{
-read_microdata(path = NULL, setclass = "tbl", ...)
+read_microdata(dataset = NULL, year = NULL, level = NULL,
+  provider = NULL, filetype = NULL, path = NULL, setclass = "tbl",
+  ...)
 }
 \arguments{
-\item{path}{Path to the microdata file within the `microdata` folder,
-including filename and extension. For example, "ABS/SIH/2015-16/Stata/HES15BP.dta".
+\item{dataset}{The abbreviated name of the dataset you wish to load, such as
+`sih` for the ABS Survey of Income and Housing.}
+
+\item{year}{The year of the dataset you wish to load, such as `2015-16` or
+`2012`.}
+
+\item{level}{Optional. Some datasets include multiple files corresponding to 
+different levels - such as the household or person level.}
+
+\item{provider}{Optional. The provider of the dataset you wish to load, such as
+'ABS' or 'ATO'. `read_microdata()` can usually figure this out for itself.}
+
+\item{filetype}{Optional. Possible values include 'stata', 'sas', and 'csv'. 
+By default, `read_microdata()` will load Stata files
+if available, falling back to SAS files if they're not available, and CSV
+if neither Stata nor SAS files are present.}
+
+\item{path}{Optional. Specifying the filepath is an alternative to using the 
+other arguments such as 'dataset'. If specified, 'path' should be the file
+path to the microdata file within the `microdata` folder,
+including filename and extension. For example, "abs/sih/2015-16/HES15BP.dta".
 Use `/` to separate subdirectories, not `\`, regardless of whether you're on a
 Windows machine or a Mac.}
 
@@ -23,7 +44,7 @@ read_microdata loads data from the Grattan Institute data warehouse
 \examples{
 
 \donttest{
- sih_1516 <- read_microdata("ABS/SIH/2015-16/Stata/SIH15BH.dta")
+hes_1516 <- read_microdata("abs/hes/2015-16/hes15bh.sas7bdat")
 }
 
 }

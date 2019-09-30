@@ -5,7 +5,7 @@
 # package.
 
 datasets <- tibble::tribble(
-              ~provider,   ~release,                    ~full_title,
+              ~provider,   ~dataset,                    ~full_title,
                   "abs",      "sih", "Survey of Income and Housing",
                   "abs",      "hes", "Household Expenditure Survey",
                   "abs",      "nhs",       "National Health Survey",

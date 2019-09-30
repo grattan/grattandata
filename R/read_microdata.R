@@ -32,7 +32,7 @@
 #' @examples
 #'
 #' \donttest{
-#' hes_1516 <- read_microdata("abs/hes/2015-16/hes15bh.sas7bdat")
+#' hes_1516 <- read_microdata(dataset = "hes", year = "2015-16", level = "p")
 #' }
 #'
 #' @importFrom rio import
@@ -130,6 +130,7 @@ read_microdata <- function(dataset = NULL,
     
     filename <- get_filename(data_dir = data_dir,
                              level = level,
+                             dataset = dataset,
                              filetype = filetype)
     
     path <- file.path(data_dir, filename)
@@ -142,6 +143,9 @@ read_microdata <- function(dataset = NULL,
   }
   
 
+  message(paste0("Importing: ",
+                 path))
+  
   rio::import(file = path,
               setclass = setclass,
               ...)
@@ -234,6 +238,7 @@ construct_path <- function(dataset,
 } 
 
 get_filename <- function(data_dir,
+                         dataset,
                          level,
                          filetype) {
   
@@ -252,8 +257,8 @@ get_filename <- function(data_dir,
     
     # If there's >1 file and the user hasn't specified a level, stop 
     if(is.null(level)) {
-      stop(paste0("There are multiple files in the directory",
-                  data_dir, ". Do you need to set the 'level'?",
+      stop(paste0("There are multiple files in the directory\n",
+                  data_dir, "\nDo you need to set the 'level'?",
                   "\nFiles in this directory are: ", 
                   paste(files_in_dir, collapse = ", ")))
     } else {
@@ -262,19 +267,41 @@ get_filename <- function(data_dir,
       file <- files_in_dir[endsWith(tools::file_path_sans_ext(tolower(files_in_dir)),
                                     tolower(level))]
       
+      
+      # If more than one file matches the 'level' pattern, find one that includes
+      # the 'dataset' string at the start 
+      # (so if, eg. hes15bp.dta and sih15bp.dta are present,
+      # and the user has requested dataset 'sih', return sih15bp.dta)
+      
+      if(length(file) > 1) {
+        
+        files_in_dir_with_dataset <- files_in_dir[startsWith(files_in_dir, dataset)]
+        
+        file <- files_in_dir_with_dataset[endsWith(tools::file_path_sans_ext(tolower(files_in_dir_with_dataset)),
+                                      tolower(level))]
+        
+        # If we still match more than one file after filtering to files that match
+        # both the dataset and level, stop 
+        if(length(file) > 1) {
+          stop(paste0("More than one file in folder\n", data_dir,
+                      "\nends with level ", level, " and starts with ",
+                      dataset))
+        }
+      }
+     
       # Check to see if a file exists with specified level - return an error if not
       if(length(file) == 0) {
         stop(paste0("Could not find a file with level '", level, "' in ",
                     data_dir, "\nFiles in this directory are: ", 
                     paste(files_in_dir, collapse = ", ")))
         
-      }
-      
+      } 
       
     } 
     
     
   } 
+  
   file
   
 }

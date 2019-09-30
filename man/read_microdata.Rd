@@ -44,7 +44,7 @@ read_microdata loads data from the Grattan Institute data warehouse
 \examples{
 
 \donttest{
-hes_1516 <- read_microdata("abs/hes/2015-16/hes15bh.sas7bdat")
+hes_1516 <- read_microdata(dataset = "hes", year = "2015-16", level = "p")
 }
 
 }

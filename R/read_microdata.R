@@ -110,7 +110,7 @@ read_microdata <- function(dataset = NULL,
     
     data_dir <- file.path(data_warehouse_path, data_dir)
   } else {
-    data_dir <- dirname(path)
+    data_dir <- file.path(data_warehouse_path, dirname(path))
   }
   
   
@@ -134,6 +134,12 @@ read_microdata <- function(dataset = NULL,
                              filetype = filetype)
     
     path <- file.path(data_dir, filename)
+  } else {
+    
+    filename <- basename(path)
+    
+    path <- file.path(data_dir, filename)
+    
   }
   
   

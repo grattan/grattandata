@@ -7,10 +7,19 @@ This function requires access to the Grattan Institute data warehouse, which
 is housed in the Grattan Institute Dropbox. If you do not have access to
 this Dropbox the function will not work.}
 \usage{
-read_microdata(filename, ...)
+read_microdata(filename, catalog_file = NULL, setclass = "tbl", ...)
 }
 \arguments{
 \item{filename}{filename}
+
+\item{catalog_file}{Optional. Filename of catalogue file, including extension. 
+For use with SAS files that store labels in a separate catalogue file. 
+Must be located in the same directory as the data, or a subdirectory of 
+that directory.}
+
+\item{setclass}{A character vector specifying the format of the object you 
+wish to import. Default is "tbl", a tibble. Other options are "data.table" and
+"data.frame". See `?rio::import`.}
 
 \item{...}{arguments passed to `rio::import()`. See `?rio::import`}
 }
@@ -20,8 +29,10 @@ This function requires access to the Grattan Institute data warehouse, which
 is housed in the Grattan Institute Dropbox. If you do not have access to
 this Dropbox the function will not work.
 }
+\details{
+`read_microdata()` is a wrapper around `rio::import()`. See `?rio::import`
+}
 \examples{
-
 \donttest{
 sih_1516 <- read_microdata("SIH15bp.dta")
 }

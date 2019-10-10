@@ -1,7 +1,20 @@
 # grattandata
 Easily load microdata from the Grattan Institute data warehouse in R. Users will require access to the Grattan Institute data warehouse.
 
-# read_microdata()
+# Install grattandata
+
+```
+# If the `remotes` package is not installed, install it
+if(require(remotes)) {
+  install.packages("remotes")
+}
+
+# Install `grattandata` from GitHub using remotes
+remotes::install_github("mattcowgill/grattandata",
+                        dependencies = TRUE, upgrade = "always")
+```
+
+# Read microdata with read_microdata()
 
 Example:
 

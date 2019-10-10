@@ -16,8 +16,10 @@ remotes::install_github("mattcowgill/grattandata",
 
 # Read microdata with read_microdata()
 
-Example:
+Examples:
 
 ```
 sih_1516 <- read_microdata("ABS/SIH/2015-16/Stata/SIH15BH.dta")
+
+sih_1516 <- read_microdata("SIH15bh.dta")
 ```

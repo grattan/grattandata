@@ -1,5 +1,6 @@
 #' @title read_microdata loads data from the Grattan Institute data warehouse
-#' This function requires access to the Grattan Institute data warehouse, which
+#' 
+#' @description This function requires access to the Grattan Institute data warehouse, which
 #' is housed in the Grattan Institute Dropbox. If you do not have access to
 #' this Dropbox the function will not work.
 #'
@@ -42,6 +43,64 @@ read_microdata <- function(filename,
   if(length(filename) != 1) stop(paste0("`filename` has ", length(filename), " elements. ",
                                         "It must only have one."))
 
+  path <- find_filename(filename)
+  
+  # Construct catalog_file path if needed -----
+  
+  if(!is.null(catalog_file)) {
+    
+    files_in_dir <- list.files(dirname(path), recursive = TRUE)
+    
+    matched_catalog_file <- files_in_dir[grepl(catalog_file, files_in_dir, ignore.case = TRUE)]
+    
+    matched_catalog_file <- file.path(dirname(path), matched_catalog_file)
+    
+    if(length(matched_catalog_file) != 1) {
+      stop(paste0("Found ", length(matched_catalog_file), " matches for ",
+                  catalog_file, " in ", dirname(path)))
+    }
+    
+  } else { # Case where user did not specify catalog_file
+    matched_catalog_file <- NULL
+  }
+
+  # Import file ------
+  message(paste0("Importing: ",
+                 path))
+  
+  # Note: when passing null args (like matched_catalog_file) 
+  # to haven::read_dta, a warning is thrown.
+  # We want to avoid that, so don't pass arg when user hasn't supplied it
+  
+  if(is.null(matched_catalog_file)) {
+    rio::import(file = path,
+                setclass = setclass,
+                ...)
+  } else {
+    rio::import(file = path,
+                catalog_file = matched_catalog_file,
+                setclass = setclass,
+                ...)
+  }
+  
+}
+
+#' @title find_filename finds a file in the Grattan data warehouse
+#' @description `find_filename()` finds files that correspond to the provided 
+#' input in the Grattan data warehouse.
+#' 
+#' @param filename A filename or fragment, with or without filepath, such as "SIH15bh.dta", "SIH15bh", 
+#' "ABS/SIH/2015-16/Stata/SIH15bh.dta", "SIH".
+#' 
+#' @return The full local path to the file that matches 'filename' in the Grattan data warehouse.
+#' If more than one matches are found, an error will be shown, including details of the multiple matches.
+#' 
+#' @export
+
+# Function finds filename corresponding to supplied 'filename',
+# either fails with appropriate errors or returns filename
+find_filename <- function(filename) {
+  
   # Construct path to data warehouse -----
   
   # Locate the .json file containing information about the user's local Dropbox
@@ -104,43 +163,7 @@ read_microdata <- function(filename,
     stop(paste0("The file ", path, " cannot be found"))
   }
   
-  # Construct catalog_file path if needed -----
-  
-  if(!is.null(catalog_file)) {
-    
-    files_in_dir <- list.files(dirname(path), recursive = TRUE)
-    
-    matched_catalog_file <- files_in_dir[grepl(catalog_file, files_in_dir, ignore.case = TRUE)]
-    
-    matched_catalog_file <- file.path(dirname(path), matched_catalog_file)
-    
-    if(length(matched_catalog_file) != 1) {
-      stop(paste0("Found ", length(matched_catalog_file), " matches for ",
-                  catalog_file, " in ", dirname(path)))
-    }
-    
-  } else { # Case where user did not specify catalog_file
-    matched_catalog_file <- NULL
-  }
-
-  # Import file ------
-  message(paste0("Importing: ",
-                 path))
-  
-  # Note: when passing null args (like matched_catalog_file) 
-  # to haven::read_dta, a warning is thrown.
-  # We want to avoid that, so don't pass arg when user hasn't supplied it
-  
-  if(is.null(matched_catalog_file)) {
-    rio::import(file = path,
-                setclass = setclass,
-                ...)
-  } else {
-    rio::import(file = path,
-                catalog_file = matched_catalog_file,
-                setclass = setclass,
-                ...)
-  }
+  return(path)
   
 }
 

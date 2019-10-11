@@ -51,3 +51,14 @@ test_that("read_microdata fails with vector input to filename", {
   expect_error(read_microdata(c("SIH15bh.dta", "SIH15bp.dta")))
   
 })
+
+
+test_that("find_filename finds filename", {
+  
+  skip_on_travis()
+  
+  expect_is("SIH15bh.dta", "character")
+  
+  expect_error(find_filename("SIH"))
+  
+})

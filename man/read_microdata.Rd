@@ -2,10 +2,7 @@
 % Please edit documentation in R/read_microdata.R
 \name{read_microdata}
 \alias{read_microdata}
-\title{read_microdata loads data from the Grattan Institute data warehouse
-This function requires access to the Grattan Institute data warehouse, which
-is housed in the Grattan Institute Dropbox. If you do not have access to
-this Dropbox the function will not work.}
+\title{read_microdata loads data from the Grattan Institute data warehouse}
 \usage{
 read_microdata(filename, catalog_file = NULL, setclass = "tbl", ...)
 }
@@ -24,7 +21,6 @@ wish to import. Default is "tbl", a tibble. Other options are "data.table" and
 \item{...}{arguments passed to `rio::import()`. See `?rio::import`}
 }
 \description{
-read_microdata loads data from the Grattan Institute data warehouse
 This function requires access to the Grattan Institute data warehouse, which
 is housed in the Grattan Institute Dropbox. If you do not have access to
 this Dropbox the function will not work.

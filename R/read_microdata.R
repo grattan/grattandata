@@ -68,20 +68,22 @@ read_microdata <- function(filename,
   message(paste0("Importing: ",
                  path))
   
-  # Note: when passing null args (like matched_catalog_file) 
+  # Note: when passing null args (like `matched_catalog_file = NULL`) 
   # to haven::read_dta, a warning is thrown.
   # We want to avoid that, so don't pass arg when user hasn't supplied it
   
   if(is.null(matched_catalog_file)) {
-    rio::import(file = path,
+    .file <- rio::import(file = path,
                 setclass = setclass,
                 ...)
   } else {
-    rio::import(file = path,
+    .file <- rio::import(file = path,
                 catalog_file = matched_catalog_file,
                 setclass = setclass,
                 ...)
   }
+  
+  return(.file)
   
 }
 

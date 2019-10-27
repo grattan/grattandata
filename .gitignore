@@ -4,3 +4,4 @@
 .Ruserdata
 grattandata.Rproj
 .httr-oauth
+inst/doc

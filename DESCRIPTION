@@ -1,6 +1,6 @@
 Package: grattandata
 Title: Use Microdata at Grattan Institute
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: 
     person(given = "Matt",
            family = "Cowgill",
@@ -17,4 +17,7 @@ Imports:
     jsonlite,
     rio
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

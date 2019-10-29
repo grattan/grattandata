@@ -104,7 +104,7 @@ read_microdata <- function(filename,
 find_filename <- function(filename) {
   
   # Construct path to data warehouse -----
-  
+  # Code in this section thanks to Hugh Parsonage
   # Locate the .json file containing information about the user's local Dropbox
   dropbox_info_location <-
     if (Sys.getenv("OS") == "Windows_NT") {

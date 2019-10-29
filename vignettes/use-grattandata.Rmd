@@ -1,0 +1,33 @@
+---
+title: "Use grattandata"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Use grattandata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## What is microdata and why do we need to be careful with it?
+
+A lot of our work at Grattan - the fun stuff! - involves working with microdata. Microdata is also known as 'unit record' data, where you have information about individual survey respondents, whether they be individuals or families or businesses. 
+
+Microdata is sensitive. Providers of microdata - like the ABS, the ATO and the Melbourne Institute - go to great lengths to try and ensure that you can't figure out the identity of any person or business who is included in the dataset. Still, it might be possible to identify people. For that reason, stringent conditions are generally put on its storage and use.
+
+## The Grattan data warehouse
+
+- Explain what it is
+- Explain how access works (some stuff is open to all, others only available to approved users)
+
+## Reading microdata with `read_microdata`
+```{r setup}
+library(grattandata)
+```
+
+

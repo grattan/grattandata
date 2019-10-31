@@ -60,7 +60,7 @@ vista_12_16_p  <- read_microdata("victoria/vista/2009/csv/P_VISTA12_16_SA1_V1.cs
 If you give `read_microdata()` a filename fragment that matches multiple files, it will return an informative error message telling you which files match your fragment. For example:
 
 ```{r error=TRUE}
-vista <- read_microdata("VISTA")
+vista <- read_microdata("VISTA12_16_")
 
 ```
 

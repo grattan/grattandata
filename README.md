@@ -55,30 +55,15 @@ files, it will return an informative error message telling you which
 files match your fragment. For example:
 
 ``` r
-vista <- read_microdata("VISTA")
-#> Error in find_filename(filename): Multiple files were found with the filename VISTA.
+vista <- read_microdata("VISTA12_16_")
+#> Error in find_filename(filename): Multiple files were found with the filename VISTA12_16_.
 #>  The matches are:
-#> victoria/vista/2007/csv/Households_VISTA07_v3_VISTA_Online.csv
-#> victoria/vista/2007/csv/JourneyToEducation_VISTA07_v3_VISTA_Online.csv
-#> victoria/vista/2007/csv/JourneyToWork_VISTA07_v3_VISTA_Online.csv
-#> victoria/vista/2007/csv/Persons_VISTA07_v3_VISTA_Online.csv
-#> victoria/vista/2007/csv/Stops_VISTA07_v3_VISTA_Online.csv
-#> victoria/vista/2007/csv/Trips_VISTA07_v3_VISTA_Online.csv
-#> victoria/vista/2007/csv/Variable_Desriptions.csv
-#> victoria/vista/2009/csv/Households_VISTA09_v3_VISTA_Online.csv
-#> victoria/vista/2009/csv/JourneyToEducation_VISTA09_v3_VISTA_Online.csv
-#> victoria/vista/2009/csv/JourneyToWork_VISTA09_v3_VISTA_Online.csv
-#> victoria/vista/2009/csv/Persons_VISTA09_v3_VISTA_Online.csv
-#> victoria/vista/2009/csv/Stops_VISTA09_v3_VISTA_Online.csv
-#> victoria/vista/2009/csv/Trips_VISTA09_v3_VISTA_Online.csv
-#> victoria/vista/2012-2016/~$STA - Glossary of Variables.docx
 #> victoria/vista/2012-2016/csv/H_VISTA12_16_SA1_V1.csv
 #> victoria/vista/2012-2016/csv/JTE_VISTA12_16_sa1_V1.csv
 #> victoria/vista/2012-2016/csv/JTW_VISTA12_16_SA1_V1.csv
 #> victoria/vista/2012-2016/csv/P_VISTA12_16_SA1_V1.csv
 #> victoria/vista/2012-2016/csv/S_VISTA12_16_SA1_V1.csv
 #> victoria/vista/2012-2016/csv/T_VISTA12_16_SA1_V1.csv
-#> victoria/vista/2012-2016/documentation/VISTA - Glossary of Variables.docx
 ```
 
 You can now identify which file you want to load, and be more specific

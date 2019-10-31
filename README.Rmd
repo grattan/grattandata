@@ -16,7 +16,7 @@ library(grattandata)
 ```
 
 # grattandata
-
+ß
 Easily load microdata from the Grattan Institute data warehouse in R. Users will require access to the Grattan Institute data warehouse.
 
 ## Get access to the data warehouse
@@ -46,21 +46,21 @@ And the development version from [GitHub](https://github.com/) with:
 
 The core function of the package is `read_microdata()`. If you give `read_microdata()` a unique fragment of a filename - with or without the directory names - it will load the relevant file for you. Don't worry about upper case and lower case letters - either, or a mix of both, will work.
 
-Here are some working examples:
+Here are some working examples using the Victorian Government's [VISTA](https://transport.vic.gov.au/about/data-and-research/vista) travel dataset:
 
 ```{r eval=FALSE}
-sih_1516 <- read_microdata("SIH15bh.dta")
+vista_12_16_p <- read_microdata("P_VISTA12_16_SA1_V1.csv")
 
-sih_1516 <- read_microdata("Stata/sih15bh.dta")
+vista_12_16_p  <- read_microdata("csv/P_VISTA12_16_SA1_V1.csv")
 
-sih_1516 <- read_microdata("ABS/SIH/2015-16/Stata/SIH15BH.dta")
+vista_12_16_p  <- read_microdata("victoria/vista/2009/csv/P_VISTA12_16_SA1_V1.csv")
 
 ```
 
 If you give `read_microdata()` a filename fragment that matches multiple files, it will return an informative error message telling you which files match your fragment. For example:
 
 ```{r error=TRUE}
-sih_1516 <- read_microdata("SIH15BH")
+vista <- read_microdata("VISTA")
 
 ```
 

@@ -3,7 +3,7 @@
 
 # grattandata
 
-Easily load microdata from the Grattan Institute data warehouse in R.
+ß Easily load microdata from the Grattan Institute data warehouse in R.
 Users will require access to the Grattan Institute data warehouse.
 
 ## Get access to the data warehouse
@@ -38,14 +38,16 @@ directory names - it will load the relevant file for you. Don’t worry
 about upper case and lower case letters - either, or a mix of both, will
 work.
 
-Here are some working examples:
+Here are some working examples using the Victorian Government’s
+[VISTA](https://transport.vic.gov.au/about/data-and-research/vista)
+travel dataset:
 
 ``` r
-sih_1516 <- read_microdata("SIH15bh.dta")
+vista_12_16_p <- read_microdata("P_VISTA12_16_SA1_V1.csv")
 
-sih_1516 <- read_microdata("Stata/sih15bh.dta")
+vista_12_16_p  <- read_microdata("csv/P_VISTA12_16_SA1_V1.csv")
 
-sih_1516 <- read_microdata("ABS/SIH/2015-16/Stata/SIH15BH.dta")
+vista_12_16_p  <- read_microdata("victoria/vista/2009/csv/P_VISTA12_16_SA1_V1.csv")
 ```
 
 If you give `read_microdata()` a filename fragment that matches multiple
@@ -53,15 +55,30 @@ files, it will return an informative error message telling you which
 files match your fragment. For example:
 
 ``` r
-sih_1516 <- read_microdata("SIH15BH")
-#> Error in find_filename(filename): Multiple files were found with the filename SIH15BH.
+vista <- read_microdata("VISTA")
+#> Error in find_filename(filename): Multiple files were found with the filename VISTA.
 #>  The matches are:
-#> abs/sih/2015-16/csv/documentation/SIH15BH_FREQ.txt
-#> abs/sih/2015-16/csv/SIH15BH.csv
-#> abs/sih/2015-16/doc/SIH15BH_FREQ.txt
-#> abs/sih/2015-16/sas/documentation/SIH15BH_FREQ.txt
-#> abs/sih/2015-16/sas/sih15bh.sas7bdat
-#> abs/sih/2015-16/stata/SIH15BH.dta
+#> victoria/vista/2007/csv/Households_VISTA07_v3_VISTA_Online.csv
+#> victoria/vista/2007/csv/JourneyToEducation_VISTA07_v3_VISTA_Online.csv
+#> victoria/vista/2007/csv/JourneyToWork_VISTA07_v3_VISTA_Online.csv
+#> victoria/vista/2007/csv/Persons_VISTA07_v3_VISTA_Online.csv
+#> victoria/vista/2007/csv/Stops_VISTA07_v3_VISTA_Online.csv
+#> victoria/vista/2007/csv/Trips_VISTA07_v3_VISTA_Online.csv
+#> victoria/vista/2007/csv/Variable_Desriptions.csv
+#> victoria/vista/2009/csv/Households_VISTA09_v3_VISTA_Online.csv
+#> victoria/vista/2009/csv/JourneyToEducation_VISTA09_v3_VISTA_Online.csv
+#> victoria/vista/2009/csv/JourneyToWork_VISTA09_v3_VISTA_Online.csv
+#> victoria/vista/2009/csv/Persons_VISTA09_v3_VISTA_Online.csv
+#> victoria/vista/2009/csv/Stops_VISTA09_v3_VISTA_Online.csv
+#> victoria/vista/2009/csv/Trips_VISTA09_v3_VISTA_Online.csv
+#> victoria/vista/2012-2016/~$STA - Glossary of Variables.docx
+#> victoria/vista/2012-2016/csv/H_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/JTE_VISTA12_16_sa1_V1.csv
+#> victoria/vista/2012-2016/csv/JTW_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/P_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/S_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/T_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/documentation/VISTA - Glossary of Variables.docx
 ```
 
 You can now identify which file you want to load, and be more specific

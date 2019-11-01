@@ -27,7 +27,7 @@
 #'
 #' @importFrom rio import
 #' @importFrom jsonlite fromJSON
-#' @importFrom magrittr use_series
+#' @importFrom magrittr extract2
 #' @importFrom tools file_ext
 #'
 #' @name read_microdata
@@ -103,30 +103,13 @@ read_microdata <- function(filename,
 # either fails with appropriate errors or returns filename
 find_filename <- function(filename) {
   
-  # Construct path to data warehouse -----
-  # Code in this section thanks to Hugh Parsonage
-  # Locate the .json file containing information about the user's local Dropbox
-  dropbox_info_location <-
-    if (Sys.getenv("OS") == "Windows_NT") {
-      file.path(Sys.getenv("LOCALAPPDATA"), "Dropbox", "info.json")
-    } else {
-      "~/.dropbox/info.json"
-    }
-  
-  if(!file.exists(dropbox_info_location)) {
-    stop("read_microdata() could not find your Dropbox location.")
-  }
-  
-  # Construct a path on the local disk to Dropbox (business, not personal)
-  dropbox_path <-
-    jsonlite::fromJSON(dropbox_info_location) %>%
-    magrittr::use_series("business") %>%
-    magrittr::use_series("path")
+  # Get path to business Dropbox on user's computer
+  dropbox_path <- get_dropbox_location(type = "business")
   
   if(!dir.exists(dropbox_path)) {
     stop("read_microdata() could not find the Grattan Dropbox on your local machine.")
   }
-  
+
   # Check for access to the data warehouse
   data_warehouse_path <- file.path(dropbox_path,
                                    "data",
@@ -144,6 +127,12 @@ find_filename <- function(filename) {
   
   all_files <- list.files(data_warehouse_path, recursive = TRUE)
   all_files <- all_files[!tools::file_ext(all_files) %in% unused_extensions]
+  
+  # Exclude folders that match these names
+  unused_folders <- paste0(c("/doc/", "/documentation/"),
+                           collapse = "|")
+  
+  all_files <- all_files[!grepl(unused_folders, all_files)]
   
   matched_files <- all_files[grepl(filename, all_files,
                                    ignore.case = TRUE)]
@@ -167,5 +156,38 @@ find_filename <- function(filename) {
   
   return(path)
   
+}
+
+#' @title get_dropbox_location returns the local path to the user's Dropbox
+#' 
+#' @param type Either 'business' (the default) or 'personal'. 
+#' 
+#' @return String corresponding to the path to the user's business or personal 
+#' Dropbox.
+#' 
+#' @export
+
+get_dropbox_location <- function(type = "business") {
+  # Code in this function thanks to Hugh Parsonage
+  # Locate the .json file containing information about the user's local Dropbox
+  
+  dropbox_info_location <-
+    if (Sys.getenv("OS") == "Windows_NT") {
+      file.path(Sys.getenv("LOCALAPPDATA"), "Dropbox", "info.json")
+    } else {
+      "~/.dropbox/info.json"
+    }
+  
+  if(!file.exists(dropbox_info_location)) {
+    stop("read_microdata() could not find your Dropbox location.")
+  }
+  
+  # Construct a path on the local disk to Dropbox (business, not personal)
+  dropbox_path <-
+    jsonlite::fromJSON(dropbox_info_location) %>%
+    magrittr::extract2(type) %>%
+    magrittr::extract2("path")
+  
+  dropbox_path
 }
 

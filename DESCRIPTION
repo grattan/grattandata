@@ -1,11 +1,15 @@
 Package: grattandata
 Title: Use Microdata at Grattan Institute
-Version: 0.0.0.9004
+Version: 0.1
 Authors@R: 
-    person(given = "Matt",
+    c(person(given = "Matt",
            family = "Cowgill",
            role = c("aut", "cre"),
-           email = "matthew.cowgill@grattan.edu.au")
+           email = "matthew.cowgill@grattan.edu.au"),
+           person(given = "Jonathan",
+           family = "Nolan",
+           role = c("ctb"),
+           email = "jonathan.nolan@grattan.edu.au"))
 Description: Easily load microdata from the Grattan Institute data warehouse.
 License: GPL-3
 Depends: R (>= 3.5.0)

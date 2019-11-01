@@ -27,7 +27,7 @@
 #'
 #' @importFrom rio import
 #' @importFrom jsonlite fromJSON
-#' @importFrom magrittr use_series
+#' @importFrom magrittr extract2
 #' @importFrom tools file_ext
 #'
 #' @name read_microdata
@@ -179,8 +179,8 @@ get_dropbox_location <- function(type = "business") {
   # Construct a path on the local disk to Dropbox (business, not personal)
   dropbox_path <-
     jsonlite::fromJSON(dropbox_info_location) %>%
-    magrittr::use_series(type) %>%
-    magrittr::use_series("path")
+    magrittr::extract2(type) %>%
+    magrittr::extract2("path")
   
   dropbox_path
 }

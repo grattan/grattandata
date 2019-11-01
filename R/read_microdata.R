@@ -128,6 +128,12 @@ find_filename <- function(filename) {
   all_files <- list.files(data_warehouse_path, recursive = TRUE)
   all_files <- all_files[!tools::file_ext(all_files) %in% unused_extensions]
   
+  # Exclude folders that match these names
+  unused_folders <- paste0(c("/doc/", "/documentation/"),
+                           collapse = "|")
+  
+  all_files <- all_files[!grepl(unused_folders, all_files)]
+  
   matched_files <- all_files[grepl(filename, all_files,
                                    ignore.case = TRUE)]
   

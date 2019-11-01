@@ -22,13 +22,13 @@ Microdata is sensitive. Providers of microdata - like the ABS, the ATO and the M
 
 ## The Grattan data warehouse
 
-The Grattan data warehouse is a folder on our DropBox that contains all of the microdata we use in our day to day work. 
+The Grattan data warehouse is a folder on our Dropbox that contains all of the microdata we use in our day to day work. 
 
-Some of the data is available to all Grattan users, but some is only available to users who have been approved by the organisation providing the data. Once you have been approved by the relevant organisation, contact Matt or Jonathan and you will be given access to the sub folder on DropBox that contains the microdata you've been approved to access. 
+Some of the data is available to all Grattan users, but some is only available to users who have been approved by the organisation providing the data. Once you have been approved by the relevant organisation, contact Matt or Jonathan and you will be given access to the sub folder on Dropbox that contains the microdata you've been approved to access. 
 
 Grattan requires that sensitive microdata is only stored within the data warehouse. There are several reasons for this: 
 
-1. DropBox allows us to carefully monitor who has access to each dataset.
+1. Dropbox allows us to carefully monitor who has access to each dataset.
 2. When multiple people perform analysis on the same data we can ensure that they are using the same version of the files, and
 3. Having multiple copies of microdata in Grattan team folders can clutter everybody's hard drives. 
 
@@ -41,7 +41,7 @@ Usually when importing data into an R session, you need to tell R where the file
 vista <- read_microdata("/Users/jnolan1/Dropbox (Grattan Institute)/data/microdata/victoria/vista/2009/csv/JourneyToWork_VISTA09_v3_VISTA_Online.csv")
 ```
 
-Doing this for a file on DropBox is cumbersome, because that file reference only works on your computer. If you move to a new computer or somebody needs to check your work, it will be a struggle to replicate your analysis. 
+Doing this for a file on Dropbox is cumbersome, because that file reference only works on your computer. If you move to a new computer or somebody needs to check your work, it will be a struggle to replicate your analysis. 
 
 You can instead use the grattandata package so that your analysis will work across Grattan. 
 

@@ -11,8 +11,9 @@
 #' unsure if you have access.
 #'
 #' @param filename A filename, or fragment of a filename, corresponding to a file in 
-#' the Grattan data warehouse, such as "SIH15BP.dta". Can include, or not include, the directory name(s). 
-#' See examples below for more information.
+#' the Grattan data warehouse, such as "SIH15BP.dta". Can include, or not include, the directory name(s).
+#' If you specify a file extension, such as ".dta", ".csv", or ".sas7bdat", the extension 
+#' must match exactly. See examples below for more information.
 #'
 #' @param catalog_file Optional. Filename of SAS catalogue file, including extension.
 #' For use with SAS files that store labels in a separate catalogue file.
@@ -131,7 +132,8 @@ read_microdata <- function(filename,
 #' input in the Grattan data warehouse.
 #'
 #' @param filename A filename or fragment, with or without filepath, such as "SIH15bh.dta", "SIH15bh",
-#' "ABS/SIH/2015-16/Stata/SIH15bh.dta", "SIH".
+#' "ABS/SIH/2015-16/Stata/SIH15bh.dta", "SIH". If you specify a file extension, such as ".dta", ".csv", 
+#' or ".sas7bdat", the extension must match exactly. 
 #'
 #' @return The full local path to the file that matches 'filename' in the Grattan data warehouse.
 #' If more than one matches are found, an error will be shown, including details of the multiple matches.
@@ -179,7 +181,16 @@ find_filename <- function(filename) {
   matched_files <- all_files[grepl(filename, all_files,
     ignore.case = TRUE
   )]
-
+  
+  # If the user supplies an extension (.csv, .dta, whatever) then the returned
+  # file *must* match that extension
+  supplied_ext <- tools::file_ext(filename)
+  
+  if(supplied_ext != "") {
+    matched_files <- matched_files[tools::file_ext(matched_files) == supplied_ext]
+  }
+  
+  # If there are no matches, stop
   if (length(matched_files) < 1) {
     stop(paste0(
       "No matches could be found for ", filename,
@@ -187,6 +198,7 @@ find_filename <- function(filename) {
     ))
   }
 
+  # If there are >1 matched, tell the user what they are so they can be more specific
   if (length(matched_files) > 1) {
     stop(paste0(
       "Multiple files were found with the filename ", filename,
@@ -253,7 +265,7 @@ check_dropbox_access <- function() {
                     "data",
                     "microdata")
   
-  result <- dir.exists(path)
+  result <- file.access(data_warehouse_path, mode = 2) == 0
   
   result_message <- ifelse(isTRUE(result),
                            "appear",

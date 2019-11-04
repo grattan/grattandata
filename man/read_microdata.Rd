@@ -8,8 +8,9 @@ read_microdata(filename, catalog_file = NULL, setclass = "tbl", ...)
 }
 \arguments{
 \item{filename}{A filename, or fragment of a filename, corresponding to a file in 
-the Grattan data warehouse, such as "SIH15BP.dta". Can include, or not include, the directory name(s). 
-See examples below for more information.}
+the Grattan data warehouse, such as "SIH15BP.dta". Can include, or not include, the directory name(s).
+If you specify a file extension, such as ".dta", ".csv", or ".sas7bdat", the extension 
+must match exactly. See examples below for more information.}
 
 \item{catalog_file}{Optional. Filename of SAS catalogue file, including extension.
 For use with SAS files that store labels in a separate catalogue file.

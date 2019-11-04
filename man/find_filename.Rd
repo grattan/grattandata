@@ -8,7 +8,8 @@ find_filename(filename)
 }
 \arguments{
 \item{filename}{A filename or fragment, with or without filepath, such as "SIH15bh.dta", "SIH15bh",
-"ABS/SIH/2015-16/Stata/SIH15bh.dta", "SIH".}
+"ABS/SIH/2015-16/Stata/SIH15bh.dta", "SIH". If you specify a file extension, such as ".dta", ".csv", 
+or ".sas7bdat", the extension must match exactly.}
 }
 \value{
 The full local path to the file that matches 'filename' in the Grattan data warehouse.

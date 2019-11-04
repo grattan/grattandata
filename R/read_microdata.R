@@ -265,7 +265,7 @@ check_dropbox_access <- function() {
                     "data",
                     "microdata")
   
-  result <- file.access(data_warehouse_path, mode = 2) == 0
+  result <- file.access(path, mode = 2) == 0
   
   result_message <- ifelse(isTRUE(result),
                            "appear",

@@ -1,3 +1,13 @@
+test_that("check_dropbox_access() works", {
+  skip_on_travis()
+  skip_on_cran()
+  
+  expect_true(check_dropbox_access())
+  
+  expect_message(check_dropbox_access(), regexp = "You appear to")
+  
+})
+
 test_that("find_filename finds filename", {
   skip_on_travis()
   skip_on_cran()

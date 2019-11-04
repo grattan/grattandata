@@ -1,8 +1,13 @@
 #' @title read_microdata loads data from the Grattan Institute data warehouse
 #'
-#' @description This function requires access to the Grattan Institute data warehouse, which
+#' @description `read_microdata` loads data from the Grattan Institute data warehouse.
+#' This function finds the file you're looking for with \code{find_filename()} and
+#' imports it using \code{rio::import()}. 
+#' 
+#' This function requires access to the Grattan Institute data warehouse, which
 #' is housed in the Grattan Institute Dropbox. If you do not have access to
-#' this Dropbox the function will not work.
+#' this Dropbox the function will not work. Run \code{check_dropbox_access()} if you are 
+#' unsure if you have access.
 #'
 #' @param filename filename
 #'
@@ -204,4 +209,34 @@ get_dropbox_location <- function(type = "business") {
     magrittr::extract2("path")
 
   dropbox_path
+}
+
+#' @title `check_dropbox_access` checks if you have access to the Grattan data warehouse
+#' 
+#' @description Use of `read_microdata()` relies on access to the Grattan data warehouse,
+#' which is housed on Dropbox. The `check_dropbox_access()` function checks if you have 
+#' access to the Dropbox.
+#'
+#' @return `TRUE` if you appear to have access to the data warehouse; `FALSE` if not.
+#'
+#' @export
+
+check_dropbox_access <- function() {
+  
+  path <- file.path(get_dropbox_location(),
+                    "data",
+                    "microdata")
+  
+  result <- dir.exists(path)
+  
+  result_message <- ifelse(isTRUE(result),
+                           "appear",
+                           "do not appear")
+  
+  message(paste("You",
+                result_message, 
+                "to have access to the Grattan data warehouse.")) 
+
+  invisible(result)
+
 }

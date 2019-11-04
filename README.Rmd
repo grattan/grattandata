@@ -36,7 +36,9 @@ if(!require(remotes)) {
 
 # Install `grattandata` from GitHub using remotes
 remotes::install_github("grattan/grattandata",
-                        dependencies = TRUE, upgrade = "always")
+                        dependencies = TRUE, 
+                        upgrade = "always", 
+                        build_vignettes = TRUE)
 ```
 
 And the development version from [GitHub](https://github.com/) with:

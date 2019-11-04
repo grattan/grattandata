@@ -1,0 +1,102 @@
+---
+title: "Use grattandata"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Use grattandata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## What is microdata and why do we need to be careful with it?
+
+A lot of our work at Grattan - the fun stuff! - involves working with microdata. Microdata is also known as 'unit record' data, where you have information about individual survey respondents, whether they be individuals or families or businesses. 
+
+Microdata is sensitive. Providers of microdata - like the ABS, the ATO and the Melbourne Institute - go to great lengths to try and ensure that you can't figure out the identity of any person or business who is included in the dataset. Still, it might be possible to identify people. For that reason, stringent conditions are generally put on its storage and use.
+
+## The Grattan data warehouse
+
+The Grattan data warehouse is a folder on our Dropbox that contains all of the microdata we use in our day to day work. 
+
+Some of the data is available to all Grattan users, but some is only available to users who have been approved by the organisation providing the data. Once you have been approved by the relevant organisation, contact Matt or Jonathan and you will be given access to the sub folder on Dropbox that contains the microdata you've been approved to access. 
+
+Grattan requires that sensitive microdata is only stored within the data warehouse. There are several reasons for this: 
+
+1. Dropbox allows us to carefully monitor who has access to each dataset.
+2. When multiple people perform analysis on the same data we can ensure that they are using the same version of the files, and
+3. Having multiple copies of microdata in Grattan team folders can clutter everybody's hard drives. 
+
+
+## Reading microdata with `read_microdata`
+
+Usually when importing data into an R session, you need to tell R where the file is on your computer:
+
+```{r eval=FALSE}
+vista <- read_microdata("/Users/jnolan1/Dropbox (Grattan Institute)/data/microdata/victoria/vista/2009/csv/JourneyToWork_VISTA09_v3_VISTA_Online.csv")
+```
+
+Doing this for a file on Dropbox is cumbersome, because that file reference only works on your computer. If you move to a new computer or somebody needs to check your work, it will be a struggle to replicate your analysis. 
+
+You can instead use the grattandata package so that your analysis will work across Grattan. 
+
+### Installation
+
+To install the package open RStudio on your computer and run the following code:  
+
+```{r eval=FALSE}
+# If the `remotes` package is not installed, install it
+if(!require(remotes)) {
+  install.packages("remotes")
+}
+
+# Install `grattandata` from GitHub using remotes
+remotes::install_github("grattan/grattandata",
+                        dependencies = TRUE, upgrade = "always")
+```
+
+Once the package is installed it needs to be run every time you start a new R session: 
+```{r setup}
+library(grattandata)
+```
+
+### Read microdata with `read_microdata()`
+
+`read_microdata()` can now be used instead of `import()` or `read_csv()` to import data from the Grattan data warehouse into R. 
+
+`read_microdata()` does its best to find the file you want based on the information you give it. If you give `read_microdata()` a unique fragment of a filename - with or without the directory names - it will load the relevant file for you. Don't worry about upper case and lower case letters - either, or a mix of both, will work.
+
+Here are some working examples using the Victorian Government's [VISTA](https://transport.vic.gov.au/about/data-and-research/vista) travel dataset:
+
+```{r eval=FALSE}
+vista <- read_microdata("P_VISTA12_16_SA1_V1.csv")
+
+vista <- read_microdata("csv/P_VISTA12_16_SA1_V1.csv")
+
+vista <- read_microdata("victoria/vista/2009/csv/P_VISTA12_16_SA1_V1.csv")
+
+```
+
+If you give `read_microdata()` a filename fragment that matches multiple files, it will return an informative error message telling you which files match your fragment. For example:
+
+```{r error=TRUE}
+vista <- read_microdata("VISTA12_16_")
+
+```
+
+You can now  identify which file you want to load, and be more specific with the text that you pass to `read_microdata()`.
+
+### Adding options
+
+grattandata uses `import()` from the rio package to import files. `import()` is itself calls on many different packages to import different types of files. There are many options within rio that control how your file is imported. You can add any argument to `read_microdata` and it will be passed through to rio, as if you had typed it to `import()`. For example: 
+
+```{r eval=FALSE}
+vista <- read_microdata("P_VISTA12_16_SA1_V1.csv",skip = 5)
+```
+
+You can see all the available options for the `import()` function [here](https://www.rdocumentation.org/packages/rio/versions/0.5.16/topics/import).

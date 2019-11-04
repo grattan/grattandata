@@ -10,7 +10,7 @@ get_dropbox_location(type = "business")
 \item{type}{Either 'business' (the default) or 'personal'.}
 }
 \value{
-String corresponding to the path to the user's business or personal 
+String corresponding to the path to the user's business or personal
 Dropbox.
 }
 \description{

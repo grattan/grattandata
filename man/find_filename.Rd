@@ -7,7 +7,7 @@
 find_filename(filename)
 }
 \arguments{
-\item{filename}{A filename or fragment, with or without filepath, such as "SIH15bh.dta", "SIH15bh", 
+\item{filename}{A filename or fragment, with or without filepath, such as "SIH15bh.dta", "SIH15bh",
 "ABS/SIH/2015-16/Stata/SIH15bh.dta", "SIH".}
 }
 \value{
@@ -15,6 +15,6 @@ The full local path to the file that matches 'filename' in the Grattan data ware
 If more than one matches are found, an error will be shown, including details of the multiple matches.
 }
 \description{
-`find_filename()` finds files that correspond to the provided 
+`find_filename()` finds files that correspond to the provided
 input in the Grattan data warehouse.
 }

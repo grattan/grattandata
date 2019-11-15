@@ -30,8 +30,6 @@ remotes::install_github("grattan/grattandata",
                         build_vignettes = TRUE)
 ```
 
-And the development version from [GitHub](https://github.com/) with:
-
 ## Read microdata with `read_microdata()`
 
 The core function of the package is `read_microdata()`. If you give

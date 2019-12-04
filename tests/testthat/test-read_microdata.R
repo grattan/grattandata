@@ -1,32 +1,4 @@
-test_that("check_dropbox_access() works", {
-  skip_on_travis()
-  skip_on_cran()
-  
-  expect_true(check_dropbox_access())
-  
-  expect_message(check_dropbox_access(), regexp = "You appear to")
-  
-})
 
-test_that("find_filename finds filename", {
-  skip_on_travis()
-  skip_on_cran()
-
-  expect_is(find_filename("SIH15bh.dta"), "character")
-
-  expect_true(file.exists(find_filename("SIH15bh.dta")))
-
-  expect_error(find_filename("SIH"))
-})
-
-test_that("Dropbox location can be found", {
-  skip_on_travis()
-  skip_on_cran()
-
-  expect_is(get_dropbox_location(), "character")
-
-  expect_true(dir.exists(get_dropbox_location()))
-})
 
 test_that("read_microdata loads SIH 2015-16", {
   skip_on_travis()

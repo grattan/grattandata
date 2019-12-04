@@ -7,43 +7,46 @@
 read_microdata(filename, catalog_file = NULL, setclass = "tbl", ...)
 }
 \arguments{
-\item{filename}{A filename, or fragment of a filename, corresponding to a file in 
-the Grattan data warehouse, such as "SIH15BP.dta". Can include, or not include, the directory name(s).
-If you specify a file extension, such as ".dta", ".csv", or ".sas7bdat", the extension 
+\item{filename}{A filename, or fragment of a filename, corresponding to
+a file in the Grattan data warehouse, such as "SIH15BP.dta".
+Can include, or not include, the directory name(s). If you specify a
+file extension, such as ".dta", ".csv", or ".sas7bdat", the extension
 must match exactly. See examples below for more information.}
 
-\item{catalog_file}{Optional. Filename of SAS catalogue file, including extension.
-For use with SAS files that store labels in a separate catalogue file.
-Must be located in the same directory as the data, or a subdirectory of
-that directory.}
+\item{catalog_file}{Optional. Filename of SAS catalogue file,
+including extension. For use with SAS files that store labels in a
+separate catalogue file. Must be located in the same directory as the data,
+or a subdirectory of that directory.}
 
-\item{setclass}{Optional. A character vector specifying the format of the object you
-wish to import. Default is "tbl", a tibble. Other options are "data.table" and
-"data.frame". See `?rio::import`.}
+\item{setclass}{Optional. A character vector specifying the format of the
+object you wish to import. Default is "tbl", a tibble. Other options are
+"data.table" and "data.frame". See `?rio::import`.}
 
 \item{...}{arguments passed to `rio::import()`. See `?rio::import`}
 }
 \description{
-\code{read_microdata()} loads data from the Grattan Institute data warehouse.
-This function finds the file you're looking for with \code{find_filename()} and
-imports it using \code{rio::import()}. Run \code{browseVignettes("grattandata")} for 
-more on how to use \code{read_microdata()}.
+\code{read_microdata()} loads data from the Grattan Institute
+data warehouse. This function finds the file you're looking for with
+\code{find_filename()} and imports it using \code{rio::import()}.
+Run \code{browseVignettes("grattandata")} for  more on how to use
+\code{read_microdata()}.
 
 This function requires access to the Grattan Institute data warehouse, which
 is housed in the Grattan Institute Dropbox. If you do not have access to
-this Dropbox the function will not work. Run \code{check_dropbox_access()} if you are 
-unsure if you have access.
+this Dropbox the function will not work. Run \code{check_dropbox_access()}
+if you are unsure if you have access.
 }
 \details{
-`read_microdata()` uses the `find_filename()` function to search the Grattan data 
-warehouse for a file that matches the filename you supply. If no matches are found, it
-will return an error. If one match is found, it will load the file. If more than one 
-files are found that match your filename, it will tell you what the matches are so you
-can be more specific.
+`read_microdata()` uses the `find_filename()` function to search the Grattan
+data warehouse for a file that matches the filename you supply.
+If no matches are found, it will return an error. If one match is found,
+it will load the file. If more than one files are found that match your
+filename, it will tell you what the matches are so you can be more specific.
 
-`read_microdata()` loads files using `rio::import()`. See `?rio::import` for information
-on the range of options you can specify, such as the number of lines to skip in a CSV
-or the range and/or worksheet to import from an Excel workbook.
+`read_microdata()` loads files using `rio::import()`. See `?rio::import`
+for information on the range of options you can specify, such as the number
+of lines to skip in a CSV or the range and/or worksheet to import from an
+Excel workbook.
 }
 \examples{
 
@@ -57,12 +60,12 @@ sih_1516 <- read_microdata("SIH15bp.dta")
 sih_1516 <- read_microdata("abs/sih/2015-16/stata/SIH15BP.dta")
 }
 
-# If the filename you supply matches multiple files in the data 
+# If the filename you supply matches multiple files in the data
 # warehouse, you'll be told what the matches are so you can be
 # more specific.
 \donttest{
 sih_1516 <- read_microdata("SIH15BP")
 }
- 
+
 
 }

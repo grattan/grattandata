@@ -18,10 +18,10 @@
 #' Can include, or not include, the directory name(s). If you specify a
 #' file extension, such as ".dta", ".csv", or ".sas7bdat", the extension
 #' must match exactly. See examples below for more information.
-#' 
-#' @param fast `FALSE` by default. If set to `TRUE`, `read_microdata()` will 
-#' look for a ".fst" version of the file you have requested, and load it if 
-#' it exists. fst files are a compressed data format that is quick to load. 
+#'
+#' @param fast `FALSE` by default. If set to `TRUE`, `read_microdata()` will
+#' look for a ".fst" version of the file you have requested, and load it if
+#' it exists. fst files are a compressed data format that is quick to load.
 #' Note that .fst files do not include attributes such as column labels that
 #' may be present in Stata and SAS files.
 #'
@@ -89,7 +89,7 @@ read_microdata <- function(filename,
       "It must only have one."
     ))
   }
-  
+
   if (isTRUE(fast) & !is.null(catalog_file)) {
     warning("`fast` is set to `TRUE`, so `catalog_file` will be ignored.")
     catalog_file <- NULL
@@ -97,7 +97,7 @@ read_microdata <- function(filename,
 
   path <- find_filename(filename)
   fst_present <- fst_exists(path)
-  
+
   if (isTRUE(fast)) {
     if (isTRUE(fst_present)) {
       path <- construct_fst_path(path)
@@ -149,20 +149,20 @@ read_microdata <- function(filename,
       ...
     )
   }
-  
+
   # If an .fst file is not present, we want to create one for next time
-  
+
   if (isFALSE(fst_present)) {
-    
+
     fst_path <- construct_fst_path(path)
     fst_dir <- dirname(fst_path)
-    
+
     if (isFALSE(dir.exists(fst_dir))) {
       dir.create(fst_dir)
     }
-    
+
     fst::write_fst(.file, fst_path)
   }
-  
+
   return(.file)
 }

@@ -10,7 +10,7 @@
 #' @return The full local path to the file that matches 'filename' in the
 #' Grattan data warehouse. If more than one match is found, an error will
 #' be shown, including details of the multiple matches.
-#' 
+#'
 #' @details Note that certain file extensions, including ".zip", ".txt" and
 #' ".fst" are excluded from find_filename's search. If you want to load a ".fst"
 #' file, use `read_microdata(fast = TRUE)`

@@ -71,11 +71,23 @@ find_filename <- function(filename) {
     matched_files <- matched_files[file_ext(matched_files) == supplied_ext]
   }
 
-  # If there are no matches, stop
+  # If there are no matches, suggest possible matches and stop with error
   if (length(matched_files) < 1) {
+    
+    possible_alias <- find_alias(filename)
+    
+    if (!is.na(possible_alias)) {
+      suggestion <- paste0("Did you mean '",
+                           possible_alias,
+                           "'?")
+    } else {
+      suggestion <- ""
+    }
+    
     stop(paste0(
-      "No matches could be found for ", filename,
-      "\nin the Grattan data warehouse folders to which you have access"
+      "No matches could be found for '", filename,
+      "'in the Grattan data warehouse folders to which you have access.\n",
+      suggestion
     ))
   }
 

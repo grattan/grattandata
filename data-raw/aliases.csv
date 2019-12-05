@@ -1,0 +1,36 @@
+﻿dataset,alias
+census,census
+census,census of population and housing
+census,the census
+hes,hes
+hes,household expenditure survey
+hes,household expenditure
+nhs,nhs
+nhs,national health survey
+nhs,australian health survey
+sih,sih
+sih,survey of income and housing
+sih,income and housing
+ato_sample_file,ato_sample_file
+ato_sample_file,taxstats
+ato_sample_file,tax stats
+ato_sample_file,sample file
+ato_sample_file,tax sample file
+ato_sample_file,ato sample file
+development_applications,development_applications
+development_applications,development applications
+VISTA,VISTA
+VISTA,victorian integrated survey of travel and activity
+VISTA,survey of travel and activity
+lsay,lsay
+lsay,longitudinal surveys of australian youth
+lsay,longitudinal survey of australian youth
+mbs_pbs,mbs_pbs
+mbs_pbs,mbs
+mbs_pbs,pbs
+mbs_pbs,medicare benefits schedule
+mbs_pbs,pharmaceutical benefits schedule
+wad,wad
+wad,workplace agreements database
+wad,enterprise agreements database
+wad,ebas database

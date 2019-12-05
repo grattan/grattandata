@@ -64,12 +64,12 @@ Excel workbook.
 }
 \examples{
 
-# Specifying a filename works:
+# You can import a file by specifying its filename, without the path:
 \donttest{
 sih_1516 <- read_microdata("SIH15bp.dta")
 }
 
-# You can include the directory name(s) if you want:
+# You can also include part of the file path if you like:
 \donttest{
 sih_1516 <- read_microdata("abs/sih/2015-16/stata/SIH15BP.dta")
 }

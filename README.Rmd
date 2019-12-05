@@ -66,5 +66,5 @@ vista <- read_microdata("VISTA12_16_")
 
 You can now  identify which file you want to load, and be more specific with the fragment that you pass to `read_microdata()`.
 
-For more, see the package vignette.
+For more, see the package vignette by typing `browseVignettes("grattandata")`. This should open a tab in your web browser - click 'HTML'.
 

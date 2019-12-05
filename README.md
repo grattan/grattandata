@@ -23,8 +23,9 @@ if(!require(remotes)) {
   install.packages("remotes")
 }
 
-# Install `grattandata` from GitHub using remotes
+# Install `grattandata` from GitHub using remotes like this:
 remotes::install_github("grattan/grattandata",
+                        dependencies = TRUE, 
                         upgrade = "always", 
                         build_vignettes = TRUE)
 ```
@@ -55,7 +56,7 @@ files match your fragment. For example:
 
 ``` r
 vista <- read_microdata("VISTA12_16_")
-#> Error in find_filename(filename): Multiple files were found with the filename VISTA12_16_.
+#> Error in find_filename(filename): Multiple files were found with VISTA12_16_ in the filename. .
 #>  The matches are:
 #> victoria/VISTA/2012-2016/csv/H_VISTA12_16_SA1_V1.csv
 #> victoria/VISTA/2012-2016/csv/JTE_VISTA12_16_sa1_V1.csv
@@ -68,4 +69,6 @@ vista <- read_microdata("VISTA12_16_")
 You can now identify which file you want to load, and be more specific
 with the fragment that you pass to `read_microdata()`.
 
-For more, see the package vignette.
+For more, see the package vignette by typing
+`browseVignettes("grattandata")`. This should open a tab in your web
+browser - click ‘HTML’.

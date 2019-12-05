@@ -1,4 +1,8 @@
 test_that("find_alias behaves as expected", {
+  
+  skip_on_cran()
+  skip_on_travis()
+  
   expect_match(find_alias("survey of income and housing"), 
                "sih")
   

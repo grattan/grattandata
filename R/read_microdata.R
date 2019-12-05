@@ -9,18 +9,26 @@
 #' This function requires access to the Grattan Institute data warehouse, which
 #' is housed in the Grattan Institute Dropbox. If you do not have access to
 #' this Dropbox the function will not work. Run \code{check_dropbox_access()}
-#' if you are unsure if you have access.
+#' if you are unsure if you have access. If you have selective sync enabled in
+#' Dropbox (as you should), the file may have to be downloaded before it can
+#' be imported, which may take time.
 #'
 #' @param filename A filename, or fragment of a filename, corresponding to
 #' a file in the Grattan data warehouse, such as "SIH15BP.dta".
 #' Can include, or not include, the directory name(s). If you specify a
 #' file extension, such as ".dta", ".csv", or ".sas7bdat", the extension
 #' must match exactly. See examples below for more information.
+#' 
+#' @param fast `FALSE` by default. If set to `TRUE`, `read_microdata()` will 
+#' look for a ".fst" version of the file you have requested, and load it if 
+#' it exists. fst files are a compressed data format that is quick to load. 
+#' Note that .fst files do not include attributes such as column labels that
+#' may be present in Stata and SAS files.
 #'
 #' @param catalog_file Optional. Filename of SAS catalogue file,
 #' including extension. For use with SAS files that store labels in a
 #' separate catalogue file. Must be located in the same directory as the data,
-#' or a subdirectory of that directory.
+#' or a subdirectory of that directory. Will be ignored if `fast` is `TRUE`.
 #'
 #' @param setclass Optional. A character vector specifying the format of the
 #' object you wish to import. Default is "tbl", a tibble. Other options are
@@ -66,6 +74,7 @@
 #' @export
 
 read_microdata <- function(filename,
+                           fast = FALSE,
                            catalog_file = NULL,
                            setclass = "tbl",
                            ...) {
@@ -79,8 +88,20 @@ read_microdata <- function(filename,
       "It must only have one."
     ))
   }
+  
+  if (isTRUE(fast) & !is.null(catalog_file)) {
+    warning("`fast` is set to `TRUE`, so `catalog_file` will be ignored.")
+    catalog_file <- NULL
+  }
 
   path <- find_filename(filename)
+  fst_present <- fst_exists(path)
+  
+  if (isTRUE(fast)) {
+    if (isTRUE(fst_present)) {
+      path <- construct_fst_path(path)
+    }
+  }
 
   # Construct catalog_file path if needed -----
 
@@ -127,6 +148,20 @@ read_microdata <- function(filename,
       ...
     )
   }
-
+  
+  # If an .fst file is not present, we want to create one for next time
+  
+  if (isFALSE(fst_present)) {
+    
+    fst_path <- construct_fst_path(path)
+    fst_dir <- dirname(fst_path)
+    
+    if (isFALSE(dir.exists(fst_dir))) {
+      dir.create(fst_dir)
+    }
+    
+    rio::export(.file, fst_path)
+  }
+  
   return(.file)
 }

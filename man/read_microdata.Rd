@@ -4,7 +4,13 @@
 \alias{read_microdata}
 \title{read_microdata loads data from the Grattan Institute data warehouse}
 \usage{
-read_microdata(filename, catalog_file = NULL, setclass = "tbl", ...)
+read_microdata(
+  filename,
+  fast = FALSE,
+  catalog_file = NULL,
+  setclass = "tbl",
+  ...
+)
 }
 \arguments{
 \item{filename}{A filename, or fragment of a filename, corresponding to
@@ -13,10 +19,16 @@ Can include, or not include, the directory name(s). If you specify a
 file extension, such as ".dta", ".csv", or ".sas7bdat", the extension
 must match exactly. See examples below for more information.}
 
+\item{fast}{`FALSE` by default. If set to `TRUE`, `read_microdata()` will 
+look for a ".fst" version of the file you have requested, and load it if 
+it exists. fst files are a compressed data format that is quick to load. 
+Note that .fst files do not include attributes such as column labels that
+may be present in Stata and SAS files.}
+
 \item{catalog_file}{Optional. Filename of SAS catalogue file,
 including extension. For use with SAS files that store labels in a
 separate catalogue file. Must be located in the same directory as the data,
-or a subdirectory of that directory.}
+or a subdirectory of that directory. Will be ignored if `fast` is `TRUE`.}
 
 \item{setclass}{Optional. A character vector specifying the format of the
 object you wish to import. Default is "tbl", a tibble. Other options are
@@ -34,7 +46,9 @@ Run \code{browseVignettes("grattandata")} for  more on how to use
 This function requires access to the Grattan Institute data warehouse, which
 is housed in the Grattan Institute Dropbox. If you do not have access to
 this Dropbox the function will not work. Run \code{check_dropbox_access()}
-if you are unsure if you have access.
+if you are unsure if you have access. If you have selective sync enabled in
+Dropbox (as you should), the file may have to be downloaded before it can
+be imported, which may take time.
 }
 \details{
 `read_microdata()` uses the `find_filename()` function to search the Grattan

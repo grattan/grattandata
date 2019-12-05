@@ -14,10 +14,15 @@ the extension must match exactly.}
 }
 \value{
 The full local path to the file that matches 'filename' in the
-Grattan data warehouse. If more than one matches are found, an error will
+Grattan data warehouse. If more than one match is found, an error will
 be shown, including details of the multiple matches.
 }
 \description{
 `find_filename()` finds files that correspond to the provided
 input in the Grattan data warehouse.
+}
+\details{
+Note that certain file extensions, including ".zip", ".txt" and
+".fst" are excluded from find_filename's search. If you want to load a ".fst"
+file, use `read_microdata(fast = TRUE)`
 }

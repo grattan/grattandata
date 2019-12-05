@@ -22,6 +22,7 @@ Imports:
     magrittr,
     jsonlite,
     rio,
+    stringdist,
     fst
 Suggests: 
     testthat (>= 2.1.0),

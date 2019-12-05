@@ -23,34 +23,16 @@
 # either fails with appropriate errors or returns filename
 find_filename <- function(filename) {
 
-  # Get path to business Dropbox on user's computer
-  dropbox_path <- get_dropbox_location(type = "business")
-
-  if (!dir.exists(dropbox_path)) {
-    stop("read_microdata() could not find the",
-         "Grattan Dropbox on your local machine.")
-  }
-
-  # Check for access to the data warehouse
-  data_warehouse_path <- file.path(
-    dropbox_path,
-    "data",
-    "microdata"
-  )
-
-  if (file.access(data_warehouse_path, mode = 2) != 0) {
-    stop(paste0("You do not appear to have access to the Grattan data
-                warehouse,\n", data_warehouse_path))
-  }
+  data_warehouse_path <- get_data_warehouse_path()
 
   # Look in all subdirs of the datawarehouse, if a single match is found,
   # return it
   # If 0 matches, stop; if > 1 matches, stop and tell the user what they are
   # First, exclude files with given extensions ('unused_extensions')
-  unused_extensions <- c("zip", "txt", "fst")
+  # unused_extensions is an internal data object; see data-raw
 
   all_files <- list.files(data_warehouse_path, recursive = TRUE)
-  all_files <- all_files[!file_ext(all_files) %in% unused_extensions]
+  all_files <- all_files[!tolower(file_ext(all_files)) %in% unused_extensions]
 
   # Exclude folders that match these names
   unused_folders <- paste0(c("/doc/", "/documentation/"),
@@ -71,11 +53,23 @@ find_filename <- function(filename) {
     matched_files <- matched_files[file_ext(matched_files) == supplied_ext]
   }
 
-  # If there are no matches, stop
+  # If there are no matches, suggest possible matches and stop with error
   if (length(matched_files) < 1) {
+    
+    possible_alias <- find_alias(filename)
+    
+    if (!is.na(possible_alias)) {
+      suggestion <- paste0("Did you mean '",
+                           possible_alias,
+                           "'?")
+    } else {
+      suggestion <- ""
+    }
+    
     stop(paste0(
-      "No matches could be found for ", filename,
-      "\nin the Grattan data warehouse folders to which you have access"
+      "No matches could be found for '", filename,
+      "'in the Grattan data warehouse folders to which you have access.\n",
+      suggestion
     ))
   }
 
@@ -83,7 +77,8 @@ find_filename <- function(filename) {
   # they are so they can be more specific
   if (length(matched_files) > 1) {
     stop(paste0(
-      "Multiple files were found with the filename ", filename,
+      "Multiple files were found with ", filename,
+      " in the filename. ",
       ".\n The matches are:\n", paste0(matched_files, collapse = "\n")
     ))
   }

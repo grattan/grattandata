@@ -19,9 +19,9 @@ Can include, or not include, the directory name(s). If you specify a
 file extension, such as ".dta", ".csv", or ".sas7bdat", the extension
 must match exactly. See examples below for more information.}
 
-\item{fast}{`FALSE` by default. If set to `TRUE`, `read_microdata()` will 
-look for a ".fst" version of the file you have requested, and load it if 
-it exists. fst files are a compressed data format that is quick to load. 
+\item{fast}{`FALSE` by default. If set to `TRUE`, `read_microdata()` will
+look for a ".fst" version of the file you have requested, and load it if
+it exists. fst files are a compressed data format that is quick to load.
 Note that .fst files do not include attributes such as column labels that
 may be present in Stata and SAS files.}
 
@@ -64,12 +64,12 @@ Excel workbook.
 }
 \examples{
 
-# Specifying a filename works:
+# You can import a file by specifying its filename, without the path:
 \donttest{
 sih_1516 <- read_microdata("SIH15bp.dta")
 }
 
-# You can include the directory name(s) if you want:
+# You can also include part of the file path if you like:
 \donttest{
 sih_1516 <- read_microdata("abs/sih/2015-16/stata/SIH15BP.dta")
 }

@@ -34,14 +34,13 @@ if(!require(remotes)) {
   install.packages("remotes")
 }
 
-# Install `grattandata` from GitHub using remotes
+# Install `grattandata` from GitHub using remotes like this:
 remotes::install_github("grattan/grattandata",
                         dependencies = TRUE, 
                         upgrade = "always", 
                         build_vignettes = TRUE)
 ```
 
-And the development version from [GitHub](https://github.com/) with:
 
 ## Read microdata with `read_microdata()`
 

@@ -65,3 +65,30 @@ check_dropbox_access <- function() {
 
   invisible(result)
 }
+
+
+get_data_warehouse_path <- function() {
+  
+  # Get path to business Dropbox on user's computer
+  dropbox_path <- get_dropbox_location(type = "business")
+  
+  if (!dir.exists(dropbox_path)) {
+    stop("read_microdata() could not find the",
+         "Grattan Dropbox on your local machine.")
+  }
+  
+  # Check for access to the data warehouse
+  data_warehouse_path <- file.path(
+    dropbox_path,
+    "data",
+    "microdata"
+  )
+  
+  if (file.access(data_warehouse_path, mode = 2) != 0) {
+    stop(paste0("You do not appear to have access to the Grattan data
+                warehouse,\n", data_warehouse_path))
+  }
+  
+  data_warehouse_path
+  
+}

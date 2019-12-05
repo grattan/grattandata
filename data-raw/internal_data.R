@@ -9,4 +9,9 @@ aliases <- tolower(aliases)
 names(aliases) <- alias_df$dataset
 names(aliases) <- tolower(names(aliases))
 
-usethis::use_data(aliases, internal = TRUE, overwrite = TRUE)
+# Define extensions that will be excluded from the search path 
+# in `find_filename()` etc.
+
+unused_extensions <- c("zip", "txt", "fst", "pdf", ".doc")
+
+usethis::use_data(aliases, unused_extensions, internal = TRUE, overwrite = TRUE)

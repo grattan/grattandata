@@ -1,3 +1,5 @@
+library(microbenchmark)
+
 test_that("fst functions work", {
   
   skip_on_travis()
@@ -18,7 +20,7 @@ test_that("fst functions work", {
   expect_true(all.equal(stata_file, fst_file, check.attributes = FALSE))
   
   set.seed(123)
-  timings <- microbenchmark::microbenchmark(slow = read_microdata("SIH17bh.dta", fast = FALSE),
+  timings <- microbenchmark(slow = read_microdata("SIH17bh.dta", fast = FALSE),
                                       fast = read_microdata("SIH17bh.dta", fast = TRUE),
                                       times = 10)
   

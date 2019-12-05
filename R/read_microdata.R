@@ -69,6 +69,7 @@
 #'
 #'
 #' @importFrom rio import
+#' @importFrom fst write_fst
 #'
 #' @name read_microdata
 #' @export
@@ -160,7 +161,7 @@ read_microdata <- function(filename,
       dir.create(fst_dir)
     }
     
-    rio::export(.file, fst_path)
+    fst::write_fst(.file, fst_path)
   }
   
   return(.file)

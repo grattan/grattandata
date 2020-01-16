@@ -24,7 +24,11 @@
 find_filename <- function(filename) {
 
   data_warehouse_path <- get_data_warehouse_path()
-
+  
+  # Ensure that the extension requested by user isn't filtered out
+  supplied_ext <- file_ext(filename)
+  unused_extensions <- unused_extensions[!unused_extensions %in% supplied_ext]
+  
   # Look in all subdirs of the datawarehouse, if a single match is found,
   # return it
   # If 0 matches, stop; if > 1 matches, stop and tell the user what they are
@@ -47,8 +51,6 @@ find_filename <- function(filename) {
 
   # If the user supplies an extension (.csv, .dta, whatever) then the returned
   # file *must* match that extension
-  supplied_ext <- file_ext(filename)
-
   if (supplied_ext != "") {
     matched_files <- matched_files[file_ext(matched_files) == supplied_ext]
   }
@@ -73,7 +75,7 @@ find_filename <- function(filename) {
     ))
   }
 
-  # If there are >1 matched, tell the user what
+  # If there are >1 matches, tell the user what
   # they are so they can be more specific
   if (length(matched_files) > 1) {
     stop(paste0(

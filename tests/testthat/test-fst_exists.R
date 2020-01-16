@@ -7,10 +7,7 @@ test_that("fst functions work", {
 
   stata_path <- find_filename("SIH17bh.dta")
   fst_path <- construct_fst_path(stata_path)
-  expect_match(fst_path,
-               file.path("data", "microdata", "abs", "sih", "2017-18", "Stata",
-                         "fst", paste0("SIH17BH.fst")))
-
+  
   expect_equal(file.exists(fst_path),
                fst_exists(stata_path))
 
@@ -29,6 +26,6 @@ test_that("fst functions work", {
   timing_ratio <- mean(timings$time[timings$expr == "slow"]) /
     mean(timings$time[timings$expr == "fast"])
 
-  expect_gt(timing_ratio, 8)
+  expect_gt(timing_ratio, 4)
 
 })

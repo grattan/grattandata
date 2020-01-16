@@ -9,6 +9,7 @@ read_microdata(
   fast = FALSE,
   catalog_file = NULL,
   setclass = "tbl",
+  write_fst = TRUE,
   ...
 )
 }
@@ -33,6 +34,11 @@ or a subdirectory of that directory. Will be ignored if `fast` is `TRUE`.}
 \item{setclass}{Optional. A character vector specifying the format of the
 object you wish to import. Default is "tbl", a tibble. Other options are
 "data.table" and "data.frame". See `?rio::import`.}
+
+\item{write_fst}{TRUE by default. `read_microdata()` will look for a 
+.fst file that matches the location and name of the file you've requested. 
+If it doesn't find one, it will create one for future use. Set `write_fst` to
+FALSE if you do not want to create an `fst` file.}
 
 \item{...}{arguments passed to `rio::import()`. See `?rio::import`}
 }

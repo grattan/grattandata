@@ -33,6 +33,11 @@
 #' @param setclass Optional. A character vector specifying the format of the
 #' object you wish to import. Default is "tbl", a tibble. Other options are
 #' "data.table" and "data.frame". See `?rio::import`.
+#' 
+#' @param write_fst TRUE by default. `read_microdata()` will look for a 
+#' .fst file that matches the location and name of the file you've requested. 
+#' If it doesn't find one, it will create one for future use. Set `write_fst` to
+#' FALSE if you do not want to create an `fst` file.
 #'
 #' @param ... arguments passed to `rio::import()`. See `?rio::import`
 #'
@@ -78,6 +83,7 @@ read_microdata <- function(filename,
                            fast = FALSE,
                            catalog_file = NULL,
                            setclass = "tbl",
+                           write_fst = TRUE,
                            ...) {
   if (class(filename) != "character") {
     stop("`filename` must be a character string.")
@@ -152,7 +158,7 @@ read_microdata <- function(filename,
 
   # If an .fst file is not present, we want to create one for next time
 
-  if (isFALSE(fst_present)) {
+  if (isFALSE(fst_present) & isTRUE(write_fst)) {
 
     fst_path <- construct_fst_path(path)
     fst_dir <- dirname(fst_path)

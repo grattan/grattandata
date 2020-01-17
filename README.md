@@ -3,6 +3,9 @@
 
 # grattandata
 
+[![Build
+Status](https://travis-ci.org/grattan/grattandata.svg?branch=master)](https://travis-ci.org/grattan/grattandata)
+
 Easily load microdata from the Grattan Institute data warehouse in R.
 Users will require access to the Grattan Institute data warehouse.
 
@@ -58,12 +61,12 @@ files match your fragment. For example:
 vista <- read_microdata("VISTA12_16_")
 #> Error in find_filename(filename): Multiple files were found with VISTA12_16_ in the filename. .
 #>  The matches are:
-#> victoria/VISTA/2012-2016/csv/H_VISTA12_16_SA1_V1.csv
-#> victoria/VISTA/2012-2016/csv/JTE_VISTA12_16_sa1_V1.csv
-#> victoria/VISTA/2012-2016/csv/JTW_VISTA12_16_SA1_V1.csv
-#> victoria/VISTA/2012-2016/csv/P_VISTA12_16_SA1_V1.csv
-#> victoria/VISTA/2012-2016/csv/S_VISTA12_16_SA1_V1.csv
-#> victoria/VISTA/2012-2016/csv/T_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/H_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/JTE_VISTA12_16_sa1_V1.csv
+#> victoria/vista/2012-2016/csv/JTW_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/P_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/S_VISTA12_16_SA1_V1.csv
+#> victoria/vista/2012-2016/csv/T_VISTA12_16_SA1_V1.csv
 ```
 
 You can now identify which file you want to load, and be more specific

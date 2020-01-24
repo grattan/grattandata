@@ -13,3 +13,18 @@ construct_fst_path <- function(file_with_path) {
   .fst_file_with_path <- file.path(.fst_path, paste0(.file_sans_ext, ".fst"))
   return(.fst_file_with_path)
 }
+
+write_fst_file <- function(file, path) {
+  
+  fst_path <- construct_fst_path(path)
+  fst_dir <- dirname(fst_path)
+  
+  if (isFALSE(dir.exists(fst_dir))) {
+    dir.create(fst_dir)
+  }
+  
+  fst::write_fst(file, fst_path)
+
+}
+
+

@@ -157,17 +157,12 @@ read_microdata <- function(filename,
   }
 
   # If an .fst file is not present, we want to create one for next time
-
   if (isFALSE(fst_present) & isTRUE(write_fst)) {
-
-    fst_path <- construct_fst_path(path)
-    fst_dir <- dirname(fst_path)
-
-    if (isFALSE(dir.exists(fst_dir))) {
-      dir.create(fst_dir)
+    has_write_access <- file.access(path, 2) == 0
+    
+    if(isTRUE(has_write_access)) {
+      write_fst_file(file = .file, path = path)
     }
-
-    fst::write_fst(.file, fst_path)
   }
 
   return(.file)

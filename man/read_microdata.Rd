@@ -71,19 +71,19 @@ Excel workbook.
 \examples{
 
 # You can import a file by specifying its filename, without the path:
-\donttest{
+\dontrun{
 sih_1516 <- read_microdata("SIH15bp.dta")
 }
 
 # You can also include part of the file path if you like:
-\donttest{
+\dontrun{
 sih_1516 <- read_microdata("abs/sih/2015-16/stata/SIH15BP.dta")
 }
 
 # If the filename you supply matches multiple files in the data
 # warehouse, you'll be told what the matches are so you can be
 # more specific.
-\donttest{
+\dontrun{
 sih_1516 <- read_microdata("SIH15BP")
 }
 

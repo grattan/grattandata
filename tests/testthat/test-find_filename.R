@@ -1,5 +1,5 @@
 test_that("find_filename finds filename", {
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   expect_is(find_filename("SIH15bh.dta"), "character")

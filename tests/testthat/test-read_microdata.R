@@ -20,7 +20,7 @@ test_that("read_microdata loads SIH 2015-16", {
 })
 
 test_that("read_microdata fails with multiple matches", {
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   expect_error(read_microdata("SIH15BH"))

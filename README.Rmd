@@ -20,6 +20,7 @@ library(grattandata)
 [![R-CMD-check](https://github.com/grattan/grattandata/workflows/R-CMD-check/badge.svg)](https://github.com/grattan/grattandata/actions)
 <!-- badges: end -->
 
+
 Easily load microdata from the Grattan Institute data warehouse in R. Users will require access to the Grattan Institute data warehouse.
 
 ## Get access to the data warehouse

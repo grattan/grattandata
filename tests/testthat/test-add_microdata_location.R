@@ -1,4 +1,7 @@
 test_that("read_microdata() can load non-warehouse data from path defined with add_microdata_location()", {
+  skip_on_cran()
+  skip_on_ci()
+  
   temp_data <- tempfile(fileext = ".csv")
   on.exit(unlink(temp_data))
   

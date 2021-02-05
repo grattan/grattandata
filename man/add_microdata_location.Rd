@@ -33,3 +33,10 @@ We recommend that you use the `add_microdata_location()` function in your
 scripts rather than defining the `"R_GRATTANDATA_LOCATION"` environment
 variable elsewhere, to improve clarity/reproducibility of your code.
 }
+\examples{
+\dontrun{
+add_microdata_location(path = file.path("documents", "hilda"))
+
+read_microdata("hilda_file.dta")
+}
+}

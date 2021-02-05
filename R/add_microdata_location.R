@@ -21,6 +21,13 @@
 #' scripts rather than defining the `"R_GRATTANDATA_LOCATION"` environment
 #' variable elsewhere, to improve clarity/reproducibility of your code.
 #' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' add_microdata_location(path = file.path("documents", "hilda"))
+#' 
+#' read_microdata("hilda_file.dta")
+#' }
 
 add_microdata_location <- function(path) {
   Sys.setenv("R_GRATTANDATA_LOCATION" = path)

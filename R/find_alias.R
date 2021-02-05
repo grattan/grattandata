@@ -10,7 +10,7 @@ find_alias <- function(filename) {
   .filename <- basename(filename)
   .filename <- tolower(.filename)
   
-  data_warehouse_path <- get_data_warehouse_path()
+  data_warehouse_path <- get_data_path()
   
   all_files <- list.files(data_warehouse_path, recursive = TRUE)
   all_files <- all_files[!tolower(file_ext(all_files)) %in% unused_extensions]

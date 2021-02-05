@@ -92,3 +92,12 @@ get_data_warehouse_path <- function() {
   data_warehouse_path
   
 }
+
+get_data_path <- function() {
+  data_warehouse_path <- get_data_warehouse_path()
+  user_data_path <- Sys.getenv("R_GRATTANDATA_LOCATION")
+  data_path <- c(data_warehouse_path,
+                 user_data_path)
+  
+  data_path
+}

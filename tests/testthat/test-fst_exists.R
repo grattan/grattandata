@@ -2,7 +2,7 @@ library(microbenchmark)
 
 test_that("fst functions work", {
 
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   stata_path <- find_filename("SIH17bh.dta")
@@ -17,7 +17,7 @@ test_that("fst functions work", {
   expect_true(all.equal(stata_file, fst_file, check.attributes = FALSE))
 
   set.seed(123)
-  timings <- microbenchmark(slow = read_microdata("SIH17bh.dta",
+  timings <- microbenchmark::microbenchmark(slow = read_microdata("SIH17bh.dta",
                                                   fast = FALSE),
                             fast = read_microdata("SIH17bh.dta",
                                                   fast = TRUE),
@@ -26,6 +26,7 @@ test_that("fst functions work", {
   timing_ratio <- mean(timings$time[timings$expr == "slow"]) /
     mean(timings$time[timings$expr == "fast"])
 
-  expect_gt(timing_ratio, 4)
+  # We should expect the fst import to be (at least) twice as fast as .dta
+  expect_gt(timing_ratio, 2)
 
 })

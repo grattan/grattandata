@@ -1,7 +1,7 @@
 
 
 test_that("read_microdata loads SIH 2015-16", {
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   sih_15_16 <- read_microdata("SIH15BH.dta")
@@ -27,7 +27,7 @@ test_that("read_microdata fails with multiple matches", {
 })
 
 test_that("read_microdata fails with no matches", {
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   fake_filename <- paste0(paste0(sample(letters, 10), collapse = ""), ".dta")
@@ -36,7 +36,7 @@ test_that("read_microdata fails with no matches", {
 })
 
 test_that("read_microdata fails with non-character filename", {
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   expect_error(read_microdata(1))
@@ -44,7 +44,7 @@ test_that("read_microdata fails with non-character filename", {
 
 
 test_that("read_microdata fails with vector input to filename", {
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   expect_error(read_microdata(c("SIH15bh.dta", "SIH15bp.dta")))

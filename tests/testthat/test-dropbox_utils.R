@@ -1,5 +1,5 @@
 test_that("Dropbox location can be found", {
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   expect_is(get_dropbox_location(), "character")
@@ -8,7 +8,7 @@ test_that("Dropbox location can be found", {
 })
 
 test_that("check_dropbox_location() gives expected message", {
-  skip_on_travis()
+  skip_on_ci()
   skip_on_cran()
 
   expect_message(check_dropbox_access(),

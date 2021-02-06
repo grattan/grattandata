@@ -1,6 +1,8 @@
 # grattandata 0.1.2
 * GitHub Actions is now used rather than Travis-CI for continuous integration
 (automated package testing)
+* add_microdata_location() allows a user to load files not stored in the Grattan
+data warehouse using the `read_microdata()` function.
 
 # grattandata 0.1.1
 * `read_microdata()` now has the option of loading .fst files, which 

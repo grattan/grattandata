@@ -23,7 +23,7 @@
 # either fails with appropriate errors or returns filename
 find_filename <- function(filename) {
 
-  data_warehouse_path <- get_data_warehouse_path()
+  data_warehouse_path <- get_data_path()
   
   # Ensure that the extension requested by user isn't filtered out
   supplied_ext <- file_ext(filename)
@@ -35,7 +35,7 @@ find_filename <- function(filename) {
   # First, exclude files with given extensions ('unused_extensions')
   # unused_extensions is an internal data object; see data-raw
 
-  all_files <- list.files(data_warehouse_path, recursive = TRUE)
+  all_files <- list.files(data_warehouse_path, full.names = TRUE, recursive = TRUE)
   all_files <- all_files[!tolower(file_ext(all_files)) %in% unused_extensions]
 
   # Exclude folders that match these names
@@ -85,7 +85,7 @@ find_filename <- function(filename) {
     ))
   }
 
-  path <- file.path(data_warehouse_path, matched_files)
+  path <- matched_files
 
   # Check if file exists -----
   if (!file.exists(path)) {

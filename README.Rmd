@@ -20,13 +20,14 @@ library(grattandata)
 [![R-CMD-check](https://github.com/grattan/grattandata/workflows/R-CMD-check/badge.svg)](https://github.com/grattan/grattandata/actions)
 <!-- badges: end -->
 
+
 Easily load microdata from the Grattan Institute data warehouse in R. Users will require access to the Grattan Institute data warehouse.
 
 ## Get access to the data warehouse
 
-Speak to Jonathan, Will, or Matt to get access to the data warehouse.
+Speak to a Grattan R user to get access to the data warehouse. Post in `#r_at_grattan` Slack if you're not sure who to speak to.
 
-Note that access to some parts of the warehouse requires you to be an approved user of the relevant microdata.
+Note that access to some parts (most) of the warehouse requires you to be an approved user of the relevant microdata.
 
 ## Installation
 
@@ -70,5 +71,16 @@ vista <- read_microdata("VISTA12_16_")
 
 You can now  identify which file you want to load, and be more specific with the fragment that you pass to `read_microdata()`.
 
+### Data stored elsewhere
+Some data - like HILDA - can't be stored on Dropbox with our other microdata. The function `add_microdata_location()` enables you to tell the {grattandata} package where to look for this off-warehouse microdata. You use it like this:
+
+```{r eval=FALSE}
+add_microdata_location(path = file.path("documents", "hilda"))
+
+read_microdata("hilda_wave1.dta")
+read_microdata("hilda_wave2.dta")
+```
+
+### Package vignette
 For more, see the package vignette by typing `browseVignettes("grattandata")`. This should open a tab in your web browser - click 'HTML'.
 

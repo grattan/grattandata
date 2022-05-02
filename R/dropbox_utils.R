@@ -84,7 +84,7 @@ get_data_warehouse_path <- function() {
     "microdata"
   )
   
-  if (file.access(data_warehouse_path, mode = 2) != 0) {
+  if (file.access(data_warehouse_path, mode = 0) != 0) {
     stop(paste0("You do not appear to have access to the Grattan data
                 warehouse,\n", data_warehouse_path))
   }

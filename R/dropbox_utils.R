@@ -29,7 +29,7 @@ get_dropbox_location <- function(type = "business") {
   dropbox_path <-
     jsonlite::fromJSON(dropbox_info_location) %>%
     magrittr::extract2(type) %>%
-    magrittr::extract2("path")
+    magrittr::extract2("root_path")
 
   dropbox_path
 }
@@ -68,29 +68,29 @@ check_dropbox_access <- function() {
 
 
 get_data_warehouse_path <- function() {
-  
+
   # Get path to business Dropbox on user's computer
   dropbox_path <- get_dropbox_location(type = "business")
-  
+
   if (!dir.exists(dropbox_path)) {
     stop("read_microdata() could not find the",
          "Grattan Dropbox on your local machine.")
   }
-  
+
   # Check for access to the data warehouse
   data_warehouse_path <- file.path(
     dropbox_path,
     "data",
     "microdata"
   )
-  
+
   if (file.access(data_warehouse_path, mode = 0) != 0) {
     stop(paste0("You do not appear to have access to the Grattan data
                 warehouse,\n", data_warehouse_path))
   }
-  
+
   data_warehouse_path
-  
+
 }
 
 get_data_path <- function() {
@@ -98,6 +98,6 @@ get_data_path <- function() {
   user_data_path <- Sys.getenv("R_GRATTANDATA_LOCATION")
   data_path <- c(data_warehouse_path,
                  user_data_path)
-  
+
   data_path
 }

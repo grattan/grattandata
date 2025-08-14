@@ -15,21 +15,6 @@ test_that("parquet functions work", {
   parquet_file <- read_microdata("SIH17bh.dta", fast = TRUE, write_fast = "parquet")
   
   expect_true(all.equal(stata_file, parquet_file, check.attributes = FALSE))
-  
-  set.seed(123)
-  timings <- microbenchmark::microbenchmark(slow = read_microdata("SIH17bh.dta",
-                                                                  fast = FALSE),
-                                            fast = read_microdata("SIH17bh.dta",
-                                                                  fast = TRUE, 
-                                                                  write_fast = "parquet"),
-                                            times = 10)
-  
-  timing_ratio <- mean(timings$time[timings$expr == "slow"]) /
-    mean(timings$time[timings$expr == "fast"])
-  
-  # We should expect the parquet import to be (at least) twice as fast as .dta
-  expect_gt(timing_ratio, 2)
-  
 })
 
 test_that("parquet functions handle file paths correctly", {

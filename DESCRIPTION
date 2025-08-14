@@ -15,12 +15,13 @@ License: GPL-3
 Depends: R (>= 3.5.0)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Imports: 
     magrittr,
     jsonlite,
     rio,
     stringdist,
+    arrow,
     fst
 Suggests: 
     testthat (>= 2.1.0),

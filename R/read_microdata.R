@@ -20,10 +20,10 @@
 #' must match exactly. See examples below for more information.
 #'
 #' @param fast `FALSE` by default. If set to `TRUE`, `read_microdata()` will
-#' look for a ".fst" version of the file you have requested, and load it if
-#' it exists. fst files are a compressed data format that is quick to load.
-#' Note that .fst files do not include attributes such as column labels that
-#' may be present in Stata and SAS files.
+#' look for a ".fst" or ".parquet" version of the file you have requested, and load it if
+#' it exists. If both exist, .fst will be preferred. Fast files are compressed data formats 
+#' that are quick to load. Note that fast files do not include attributes such as column 
+#' labels that may be present in Stata and SAS files.
 #'
 #' @param catalog_file Optional. Filename of SAS catalogue file,
 #' including extension. For use with SAS files that store labels in a
@@ -34,10 +34,11 @@
 #' object you wish to import. Default is "tbl", a tibble. Other options are
 #' "data.table" and "data.frame". See `?rio::import`.
 #' 
-#' @param write_fst TRUE by default. `read_microdata()` will look for a 
-#' .fst file that matches the location and name of the file you've requested. 
-#' If it doesn't find one, it will create one for future use. Set `write_fst` to
-#' FALSE if you do not want to create an `fst` file.
+#' @param write_fast "fst" by default. `read_microdata()` will look for a 
+#' fast-loading file that matches the location and name of the file you've requested. 
+#' If it doesn't find one, it will create one for future use. Set `write_fast` to
+#' "fst" to create .fst files, "parquet" to create .parquet files, or FALSE 
+#' if you do not want to create a fast file.
 #'
 #' @param ... arguments passed to `rio::import()`. See `?rio::import`
 #'
@@ -75,6 +76,7 @@
 #'
 #' @importFrom rio import
 #' @importFrom fst write_fst
+#' @importFrom arrow write_parquet
 #'
 #' @name read_microdata
 #' @export
@@ -83,7 +85,7 @@ read_microdata <- function(filename,
                            fast = FALSE,
                            catalog_file = NULL,
                            setclass = "tbl",
-                           write_fst = TRUE,
+                           write_fast = "fst",
                            ...) {
   if (class(filename) != "character") {
     stop("`filename` must be a character string.")
@@ -103,10 +105,13 @@ read_microdata <- function(filename,
 
   path <- find_filename(filename)
   fst_present <- fst_exists(path)
-
+  parquet_present <- parquet_exists(path)
+  
   if (isTRUE(fast)) {
     if (isTRUE(fst_present)) {
       path <- construct_fst_path(path)
+    } else if (isTRUE(parquet_present)) {
+      path <- construct_parquet_path(path)
     }
   }
 
@@ -156,12 +161,18 @@ read_microdata <- function(filename,
     )
   }
 
-  # If an .fst file is not present, we want to create one for next time
-  if (isFALSE(fst_present) & isTRUE(write_fst)) {
+  # If a fast file is not present, we want to create one for next time
+  fast_file_present <- if (isFALSE(fst_present) & isFALSE(parquet_present)) FALSE else TRUE
+  
+  if (isFALSE(fast_file_present) & write_fast %in% c("fst", "parquet")) {
     has_write_access <- file.access(path, 2) == 0
     
     if(isTRUE(has_write_access)) {
-      write_fst_file(file = .file, path = path)
+      if (write_fast == "fst") {
+        write_fst_file(file = .file, path = path)
+      } else if (write_fast == "parquet") {
+        write_parquet_file(file = .file, path = path)
+      }
     }
   }
 

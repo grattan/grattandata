@@ -9,7 +9,7 @@ read_microdata(
   fast = FALSE,
   catalog_file = NULL,
   setclass = "tbl",
-  write_fst = TRUE,
+  write_fast = "fst",
   ...
 )
 }
@@ -21,10 +21,10 @@ file extension, such as ".dta", ".csv", or ".sas7bdat", the extension
 must match exactly. See examples below for more information.}
 
 \item{fast}{`FALSE` by default. If set to `TRUE`, `read_microdata()` will
-look for a ".fst" version of the file you have requested, and load it if
-it exists. fst files are a compressed data format that is quick to load.
-Note that .fst files do not include attributes such as column labels that
-may be present in Stata and SAS files.}
+look for a ".fst" or ".parquet" version of the file you have requested, and load it if
+it exists. If both exist, .fst will be preferred. Fast files are compressed data formats 
+that are quick to load. Note that fast files do not include attributes such as column 
+labels that may be present in Stata and SAS files.}
 
 \item{catalog_file}{Optional. Filename of SAS catalogue file,
 including extension. For use with SAS files that store labels in a
@@ -35,10 +35,11 @@ or a subdirectory of that directory. Will be ignored if `fast` is `TRUE`.}
 object you wish to import. Default is "tbl", a tibble. Other options are
 "data.table" and "data.frame". See `?rio::import`.}
 
-\item{write_fst}{TRUE by default. `read_microdata()` will look for a 
-.fst file that matches the location and name of the file you've requested. 
-If it doesn't find one, it will create one for future use. Set `write_fst` to
-FALSE if you do not want to create an `fst` file.}
+\item{write_fast}{"fst" by default. `read_microdata()` will look for a 
+fast-loading file that matches the location and name of the file you've requested. 
+If it doesn't find one, it will create one for future use. Set `write_fast` to
+"fst" to create .fst files, "parquet" to create .parquet files, or FALSE 
+if you do not want to create a fast file.}
 
 \item{...}{arguments passed to `rio::import()`. See `?rio::import`}
 }

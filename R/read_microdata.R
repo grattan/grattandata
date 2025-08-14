@@ -19,10 +19,11 @@
 #' file extension, such as ".dta", ".csv", or ".sas7bdat", the extension
 #' must match exactly. See examples below for more information.
 #'
-#' @param fast `FALSE` by default. If set to `TRUE`, `read_microdata()` will
+#' @param fast `FALSE` by default. If set to `TRUE`,"fst", or "parquet", `read_microdata()` will
 #' look for a ".fst" or ".parquet" version of the file you have requested, and load it if
-#' it exists. If both exist, .fst will be preferred. Fast files are compressed data formats 
-#' that are quick to load. Note that fast files do not include attributes such as column 
+#' it exists. If both exist, and no file type specified, .fst will be preferred. 
+#' Fast files are compressed data formats that are quick to load. 
+#' Note that fast files do not include attributes such as column 
 #' labels that may be present in Stata and SAS files.
 #'
 #' @param catalog_file Optional. Filename of SAS catalogue file,
@@ -107,10 +108,10 @@ read_microdata <- function(filename,
   fst_present <- fst_exists(path)
   parquet_present <- parquet_exists(path)
   
-  if (isTRUE(fast)) {
-    if (isTRUE(fst_present)) {
+  if (isTRUE(fast) | fast %in% c("fst", "parquet")) {
+    if (isTRUE(fst_present) | fast == "fst") {
       path <- construct_fst_path(path)
-    } else if (isTRUE(parquet_present)) {
+    } else if (isTRUE(parquet_present) | fast == "parquet") {
       path <- construct_parquet_path(path)
     }
   }

@@ -162,9 +162,11 @@ read_microdata <- function(filename,
   }
 
   # If a fast file is not present, we want to create one for next time
-  fast_file_present <- if (write_fast == "fst") fst_present else parquet_present
+  fast_file_present <- if (isFALSE(fst_present) & isFALSE(parquet_present)) FALSE else TRUE
   
-  if (isFALSE(fast_file_present) & write_fast %in% c("fst", "parquet")) {
+  # The function will preferentially create fst files, and only update if parquet is specified
+  if (isFALSE(fast_file_present) & write_fast %in% c("fst", "parquet") |
+      fst_present & write_fast == "parquet") {
     has_write_access <- file.access(path, 2) == 0
     
     if(isTRUE(has_write_access)) {
